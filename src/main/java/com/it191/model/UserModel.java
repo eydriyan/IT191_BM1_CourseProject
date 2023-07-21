@@ -3,6 +3,7 @@ package com.it191.model;
 import java.util.Date;
 
 public class UserModel {
+    public int userId;
     public String firstName;
     public String lastName;
     public Date dateOfBirth;
@@ -10,6 +11,12 @@ public class UserModel {
     public String email;
 
     
+    public int getUserId() {
+        return userId;
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
     public String getFirstName() {
         return firstName;
     }
@@ -40,6 +47,4 @@ public class UserModel {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    
 }

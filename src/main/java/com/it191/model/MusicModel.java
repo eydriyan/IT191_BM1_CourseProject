@@ -7,7 +7,6 @@ public class MusicModel {
     public UserModel artist;
 
 
-    
     public int getId() {
         return id;
     }
@@ -32,6 +31,4 @@ public class MusicModel {
     public void setArtist(UserModel artist) {
         this.artist = artist;
     }
-
-    
 }
