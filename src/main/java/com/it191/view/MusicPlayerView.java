@@ -16,7 +16,7 @@ import com.it191.controller.MusicController;
 
 public class MusicPlayerView extends JPanel {
 
-    MusicController musicController = new MusicController();
+    MusicController musicController;
 
     JButton playBtn;
     JButton pauseBtn;
@@ -25,12 +25,13 @@ public class MusicPlayerView extends JPanel {
     JSlider volumeSlider;
 
     public MusicPlayerView() {
+        musicController = new MusicController();
+
         playBtn = new JButton("Play");
         pauseBtn = new JButton("Pause");
         stopBtn = new JButton("Stop");
         seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 10000, 0);
         volumeSlider = new JSlider(JSlider.VERTICAL, 0, 100, 90);
-
         volumeSlider.setPreferredSize(new Dimension(20, 120));
 
         this.add(playBtn);
@@ -39,29 +40,27 @@ public class MusicPlayerView extends JPanel {
         this.add(seekSlider);
         this.add(volumeSlider);
 
-        seekSlider.setMaximum(musicController.getDuration());
-
         javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double percent = musicController.getCurrentPositionPercent();
+                double percent = musicController.getMusicPlayer().getCurrentPositionPercent();
                 seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
             }
 
         });
 
         playBtn.addActionListener((evt) -> {
-            musicController.playMusic();
+            musicController.getMusicPlayer().Play();
             seekSliderTimerUpdate.restart();
         });
 
         pauseBtn.addActionListener((evt) -> {
-            musicController.pauseMusic();
+            musicController.getMusicPlayer().Pause();
             seekSliderTimerUpdate.stop();
         });
 
         stopBtn.addActionListener((evt) -> {
-            musicController.stopMusic();
+            musicController.getMusicPlayer().Stop();
             seekSliderTimerUpdate.stop();
             seekSlider.setValue(0);
         });
@@ -69,7 +68,7 @@ public class MusicPlayerView extends JPanel {
         seekSlider.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                musicController.pauseMusic();
+                musicController.getMusicPlayer().Pause();
                 seekSliderTimerUpdate.stop();
                 super.mousePressed(e);
             }
@@ -90,7 +89,7 @@ public class MusicPlayerView extends JPanel {
                             public void actionPerformed(ActionEvent e) {
                                 if (!seekSlider.getValueIsAdjusting()) {
                                     double percent = (double) seekSlider.getValue() / (double) seekSlider.getMaximum();
-                                    musicController.seekPlay(percent);
+                                    musicController.getMusicPlayer().seekPlay(percent);
                                     timer.stop();
                                 }
                             }
@@ -105,8 +104,8 @@ public class MusicPlayerView extends JPanel {
         volumeSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println((float) volumeSlider.getValue() / (float) volumeSlider.getMaximum());
-                musicController.setVolume((float) volumeSlider.getValue() / (float) volumeSlider.getMaximum());
+                float volume = (float) volumeSlider.getValue() / (float) volumeSlider.getMaximum();
+                musicController.getMusicPlayer().setVolume(volume);
             }
         });
     }
