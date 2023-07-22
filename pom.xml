@@ -30,7 +30,13 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
-  </dependency>
+    </dependency>
+
+    <dependency>
+      <groupId>com.mpatric</groupId>
+      <artifactId>mp3agic</artifactId>
+      <version>0.9.1</version>
+    </dependency>
 
     <dependency>
       <groupId>junit</groupId>

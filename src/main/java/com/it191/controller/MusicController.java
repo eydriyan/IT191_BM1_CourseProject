@@ -4,20 +4,29 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
-import javazoom.jl.player.advanced.AdvancedPlayer;
+
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
+
+import javazoom.jl.player.Player;
 
 public class MusicController {
 
     private Thread musicThread;
     private FileInputStream inputStream;
-    private AdvancedPlayer player;
+    private Player player;
     private AtomicBoolean isPlaying;
+    private boolean isFirstRun;
+
+    private int currentTotalLength;
     private int lengthBeforePause;
 
-    String song_1 = "C://Users//Dell//Downloads//tests//song_2.mp3";
-    String song_2 = "C://Users//Dell//Downloads//tests//AD1//src//resources//Happy Together.mp3";
+    String song_2 = "C://Users//Dell//Downloads//tests//song_1.mp3";
+    String song_1 = "C://Users//Dell//Downloads//tests//AD1//src//resources//Happy Together.mp3";
 
     public MusicController() {
+        isFirstRun = true;
         isPlaying = new AtomicBoolean(false);
 
         musicThread = new Thread(() -> {
@@ -34,25 +43,24 @@ public class MusicController {
 
         musicThread.setDaemon(true);
         musicThread.start();
-
-        resetStartingPoint();
-    }
-
-    private void resetStartingPoint() {
-        try (FileInputStream fis = new FileInputStream(new File(song_1))) {
-            lengthBeforePause = fis.available();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
     }
 
     public void playMusic() {
         try {
+            if(isPlaying.get()) return;
+            
             inputStream = new FileInputStream(new File(song_1));
-            inputStream.skip(inputStream.available() - lengthBeforePause);
-            player = new AdvancedPlayer(inputStream);
+            
+            if (!isFirstRun) inputStream.skip(currentTotalLength - lengthBeforePause);
+
+            player = new Player(inputStream);
             this.isPlaying.set(true);
+
+            if(isFirstRun) {
+                currentTotalLength = inputStream.available();
+                lengthBeforePause = currentTotalLength;
+                isFirstRun = false;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,21 +68,62 @@ public class MusicController {
 
     public void pauseMusic() {
         try {
+            if(!isPlaying.get()) return;
+
+            isFirstRun = false;
             this.isPlaying.set(false);
             lengthBeforePause = inputStream.available();
             player.close();
+            inputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void stopMusic() {
-        this.isPlaying.set(false);
-        player.close();
-        resetStartingPoint();
+        try {
+            if(!isPlaying.get()) return;
+
+            isFirstRun = true;
+            this.isPlaying.set(false);
+            player.close();
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void seekPlay() {
-        //
+    public void seekPlay(double percent) {
+        try {
+            lengthBeforePause = currentTotalLength - (int) (currentTotalLength * percent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double getCurrentPositionPercent() {
+        try {
+            double res = 1 - ((double)inputStream.available() / (double)currentTotalLength);
+            return (res > 0) ? res : 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getDuration() {
+        int dur = 0;
+
+        try {
+            Mp3File mp3file = new Mp3File(song_1);
+            dur = (int) mp3file.getLengthInMilliseconds();
+        } catch (UnsupportedTagException | InvalidDataException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return dur;
+    }
+
+    public void setVolume(float gain) {
     }
 }
