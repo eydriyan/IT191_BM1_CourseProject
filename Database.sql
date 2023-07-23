@@ -1,6 +1,9 @@
 -- Select Database
 USE sql6633785;
 
+CREATE DATABASE it191_course_project;
+USE it191_course_project;
+
 -- Safe Update
 SET SQL_SAFE_UPDATES = 0;
 
@@ -90,3 +93,4 @@ CREATE TABLE AlbumSong (
 
 
 -- Create Data
+
