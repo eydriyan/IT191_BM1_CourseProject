@@ -3,6 +3,7 @@ package com.it191.repository;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public abstract class RepositoryBase {
     private String USERNAME = "it191_courseproject";
@@ -16,7 +17,13 @@ public abstract class RepositoryBase {
 
     protected Connection getSqlConnection() {
         try {
-            return DriverManager.getConnection(LINK, USERNAME, PASSWORD);
+            Connection sql_con = DriverManager.getConnection(LINK, USERNAME, PASSWORD);
+            
+            Statement SetDB = sql_con.createStatement();
+            SetDB.executeUpdate("USE it191_course_project");
+
+            return sql_con;
+    
         } catch (SQLException e) {
             e.printStackTrace();
         }
