@@ -7,8 +7,8 @@ public class SongModel {
     public String artist;
     public String lyrics;
     public int duration;
-    public String song_path;
-    public String img_path;
+    public String songPath;
+    public String imgPath;
 
 
     public int getSongId() {
@@ -47,16 +47,16 @@ public class SongModel {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-    public String getSong_path() {
-        return song_path;
+    public String getSongPath() {
+        return songPath;
     }
-    public void setSong_path(String song_path) {
-        this.song_path = song_path;
+    public void setSongPath(String songPath) {
+        this.songPath = songPath;
     }
-    public String getImg_path() {
-        return img_path;
+    public String getImgPath() {
+        return imgPath;
     }
-    public void setImg_path(String img_path) {
-        this.img_path = img_path;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }
