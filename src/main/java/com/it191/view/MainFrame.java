@@ -2,8 +2,6 @@ package com.it191.view;
 
 import javax.swing.JFrame;
 
-import javafx.embed.swing.JFXPanel;
-
 public class MainFrame extends JFrame {
     public MainFrame() {
         super("Music Player");
