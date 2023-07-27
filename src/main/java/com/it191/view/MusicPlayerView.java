@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -30,8 +29,8 @@ public class MusicPlayerView extends JPanel {
         playBtn = new JButton("Play");
         pauseBtn = new JButton("Pause");
         stopBtn = new JButton("Stop");
-        seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 10000, 0);
-        volumeSlider = new JSlider(JSlider.VERTICAL, 0, 100, 90);
+        seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 100000, 0);
+        volumeSlider = new JSlider(JSlider.VERTICAL, 0, 100, 100);
         volumeSlider.setPreferredSize(new Dimension(20, 120));
 
         this.add(playBtn);
@@ -46,16 +45,17 @@ public class MusicPlayerView extends JPanel {
                 double percent = musicController.getMusicPlayer().getCurrentPositionPercent();
                 seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
             }
-
         });
 
         playBtn.addActionListener((evt) -> {
             musicController.getMusicPlayer().Play();
+            musicController.TestPlay();
             seekSliderTimerUpdate.restart();
         });
 
         pauseBtn.addActionListener((evt) -> {
             musicController.getMusicPlayer().Pause();
+            musicController.TestPause();
             seekSliderTimerUpdate.stop();
         });
 
