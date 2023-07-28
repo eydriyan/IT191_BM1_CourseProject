@@ -4,21 +4,18 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
-public class PlaylistView extends JPanel {
+public class FavoritesView extends JPanel {
 
     private javax.swing.JPanel favoritesBtn;
-    private javax.swing.JLabel imagePlaylist1;
-    private javax.swing.JLabel imagePlaylist2;
-    private javax.swing.JLabel imagePlaylist3;
-    private javax.swing.JLabel imagePlaylist4;
-    private javax.swing.JLabel imagePlaylist5;
-    private javax.swing.JLabel imagePlaylist6;
-    private javax.swing.JLabel imagePlaylist7;
-    private javax.swing.JLabel imagePlaylist8;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
@@ -48,6 +45,11 @@ public class PlaylistView extends JPanel {
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel30;
+    private javax.swing.JPanel jPanel31;
+    private javax.swing.JPanel jPanel32;
+    private javax.swing.JPanel jPanel33;
+    private javax.swing.JPanel jPanel34;
+    private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
@@ -56,36 +58,23 @@ public class PlaylistView extends JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lyricsBtn;
     private javax.swing.JLabel nameOfArtist;
-    private javax.swing.JLabel nameOfPlaylist1;
-    private javax.swing.JLabel nameOfPlaylist2;
-    private javax.swing.JLabel nameOfPlaylist3;
-    private javax.swing.JLabel nameOfPlaylist4;
-    private javax.swing.JLabel nameOfPlaylist5;
-    private javax.swing.JLabel nameOfPlaylist6;
-    private javax.swing.JLabel nameOfPlaylist7;
-    private javax.swing.JLabel nameOfPlaylist8;
     private javax.swing.JLabel nextBtn;
+    private javax.swing.JLabel optionsButton;
     private javax.swing.JLabel pauseBtn;
     private javax.swing.JLabel playBtn;
-    private javax.swing.JPanel playlistButton1;
-    private javax.swing.JPanel playlistButton2;
-    private javax.swing.JPanel playlistButton3;
-    private javax.swing.JPanel playlistButton4;
-    private javax.swing.JPanel playlistButton5;
-    private javax.swing.JPanel playlistButton6;
-    private javax.swing.JPanel playlistButton7;
-    private javax.swing.JPanel playlistButton8;
     private javax.swing.JPanel playlistsBtn;
     private javax.swing.JLabel previousBtn;
     private javax.swing.JTextField searchBar;
     private javax.swing.JSlider seekSlider;
+    private javax.swing.JPanel song1Btn;
     private javax.swing.JLabel songTitle;
     private javax.swing.JPanel songsBtn;
     private javax.swing.JLabel stopBtn;
     private javax.swing.JLabel volumeIcon;
     private javax.swing.JSlider volumeSlider;
+    java.awt.GridBagConstraints gridBagConstraints;
 
-    public PlaylistView(){
+    public FavoritesView(){
         this.setLayout(new BorderLayout());
 
         jPanel1 = new javax.swing.JPanel();
@@ -142,31 +131,18 @@ public class PlaylistView extends JPanel {
         jPanel28 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
         jPanel30 = new javax.swing.JPanel();
-        playlistButton1 = new javax.swing.JPanel();
-        nameOfPlaylist1 = new javax.swing.JLabel();
-        imagePlaylist1 = new javax.swing.JLabel();
-        playlistButton2 = new javax.swing.JPanel();
-        nameOfPlaylist2 = new javax.swing.JLabel();
-        imagePlaylist2 = new javax.swing.JLabel();
-        playlistButton3 = new javax.swing.JPanel();
-        nameOfPlaylist3 = new javax.swing.JLabel();
-        imagePlaylist3 = new javax.swing.JLabel();
-        playlistButton4 = new javax.swing.JPanel();
-        nameOfPlaylist4 = new javax.swing.JLabel();
-        imagePlaylist4 = new javax.swing.JLabel();
-        playlistButton5 = new javax.swing.JPanel();
-        nameOfPlaylist5 = new javax.swing.JLabel();
-        imagePlaylist5 = new javax.swing.JLabel();
-        playlistButton6 = new javax.swing.JPanel();
-        nameOfPlaylist6 = new javax.swing.JLabel();
-        imagePlaylist6 = new javax.swing.JLabel();
-        playlistButton7 = new javax.swing.JPanel();
-        nameOfPlaylist7 = new javax.swing.JLabel();
-        imagePlaylist7 = new javax.swing.JLabel();
-        playlistButton8 = new javax.swing.JPanel();
-        nameOfPlaylist8 = new javax.swing.JLabel();
-        imagePlaylist8 = new javax.swing.JLabel();
-        java.awt.GridBagConstraints gridBagConstraints;
+        song1Btn = new javax.swing.JPanel();
+        jPanel33 = new javax.swing.JPanel();
+        jPanel31 = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel22 = new javax.swing.JLabel();
+        jPanel32 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jPanel35 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
+        optionsButton = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(244, 245, 254));
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -214,7 +190,7 @@ public class PlaylistView extends JPanel {
         jPanel16.setPreferredSize(new java.awt.Dimension(302, 113));
         jPanel16.setLayout(new java.awt.GridBagLayout());
 
-        songTitle.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24)); // NOI18N
+        songTitle.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24));
         songTitle.setForeground(new java.awt.Color(255, 255, 255));
         songTitle.setText("Song Title");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -224,7 +200,7 @@ public class PlaylistView extends JPanel {
         gridBagConstraints.insets = new java.awt.Insets(25, 12, 0, 0);
         jPanel16.add(songTitle, gridBagConstraints);
 
-        nameOfArtist.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        nameOfArtist.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18));
         nameOfArtist.setForeground(new java.awt.Color(255, 255, 255));
         nameOfArtist.setText("Name of Artist");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -252,8 +228,6 @@ public class PlaylistView extends JPanel {
         jPanel15.setBackground(new java.awt.Color(72, 51, 87));
         jPanel15.setPreferredSize(new java.awt.Dimension(735, 130));
         jPanel15.setLayout(new java.awt.BorderLayout(0, -35));
-
-        seekSlider.setPaintLabels(true);
         jPanel15.add(seekSlider, java.awt.BorderLayout.CENTER);
         seekSlider.setOpaque(false);
 
@@ -298,7 +272,7 @@ public class PlaylistView extends JPanel {
         gridBagConstraints.insets = new java.awt.Insets(20, 580, 16, 0);
         jPanel3.add(jLabel7, gridBagConstraints);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36));
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Music Player");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -351,7 +325,7 @@ public class PlaylistView extends JPanel {
         songsBtn.setPreferredSize(new java.awt.Dimension(250, 97));
         songsBtn.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 30));
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Songs");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -380,7 +354,7 @@ public class PlaylistView extends JPanel {
         playlistsBtn.setPreferredSize(new java.awt.Dimension(250, 97));
         playlistsBtn.setLayout(new java.awt.GridBagLayout());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 30));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Playlists");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -409,7 +383,7 @@ public class PlaylistView extends JPanel {
         favoritesBtn.setPreferredSize(new java.awt.Dimension(250, 97));
         favoritesBtn.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30));
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Favorites");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -448,7 +422,7 @@ public class PlaylistView extends JPanel {
         jPanel23.setLayout(new java.awt.BorderLayout());
 
         searchBar.setBackground(new java.awt.Color(51, 51, 51));
-        searchBar.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        searchBar.setFont(new java.awt.Font("Segoe UI", 0, 20));
         searchBar.setForeground(new java.awt.Color(255, 255, 255));
         searchBar.setBorder(null);
         jPanel23.add(searchBar, java.awt.BorderLayout.CENTER);
@@ -495,200 +469,88 @@ public class PlaylistView extends JPanel {
         jPanel22.add(jPanel29, java.awt.BorderLayout.SOUTH);
 
         jPanel30.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel30.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
+        jPanel30.setLayout(new java.awt.GridLayout(10, 1));
 
-        playlistButton1.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton1.setPreferredSize(new java.awt.Dimension(255, 255));
-        playlistButton1.setLayout(new java.awt.GridBagLayout());
+        song1Btn.setBackground(new java.awt.Color(30, 30, 30));
+        song1Btn.setLayout(new java.awt.GridLayout(1, 0));
 
-        nameOfPlaylist1.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist1.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist1.setText("Name of playlist");
+        jPanel33.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel33.setLayout(new java.awt.BorderLayout());
+
+        jPanel31.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel31.setLayout(new java.awt.GridBagLayout());
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton1.add(nameOfPlaylist1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 14);
+        jPanel31.add(jCheckBox1, gridBagConstraints);
+        jCheckBox1.setOpaque(false);
+        jCheckBox1.setSelected(true);
 
-        imagePlaylist1.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
+        jLabel22.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover.jpg"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 27;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton1.add(imagePlaylist1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
+        jPanel31.add(jLabel22, gridBagConstraints);
 
-        jPanel30.add(playlistButton1);
+        jPanel33.add(jPanel31, java.awt.BorderLayout.WEST);
 
-        playlistButton2.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton2.setLayout(new java.awt.GridBagLayout());
+        jPanel32.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel32.setLayout(new java.awt.GridBagLayout());
 
-        nameOfPlaylist2.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist2.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist2.setText("Name of playlist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton2.add(nameOfPlaylist2, gridBagConstraints);
-
-        imagePlaylist2.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 20));
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("Title");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 33;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton2.add(imagePlaylist2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 25, 0, 0);
+        jPanel32.add(jLabel20, gridBagConstraints);
 
-        jPanel30.add(playlistButton2);
-
-        playlistButton3.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton3.setLayout(new java.awt.GridBagLayout());
-
-        nameOfPlaylist3.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist3.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist3.setText("Name of playlist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton3.add(nameOfPlaylist3, gridBagConstraints);
-
-        imagePlaylist3.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 20));
+        jLabel21.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel21.setText("Artist");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton3.add(imagePlaylist3, gridBagConstraints);
-
-        jPanel30.add(playlistButton3);
-
-        playlistButton4.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton4.setLayout(new java.awt.GridBagLayout());
-
-        nameOfPlaylist4.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist4.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist4.setText("Name of playlist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipady = 33;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton4.add(nameOfPlaylist4, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(30, 25, 0, 22);
+        jPanel32.add(jLabel21, gridBagConstraints);
 
-        imagePlaylist4.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton4.add(imagePlaylist4, gridBagConstraints);
+        jPanel33.add(jPanel32, java.awt.BorderLayout.EAST);
 
-        jPanel30.add(playlistButton4);
+        song1Btn.add(jPanel33);
 
-        playlistButton5.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton5.setLayout(new java.awt.GridBagLayout());
+        jPanel35.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel35.setLayout(new java.awt.BorderLayout());
 
-        nameOfPlaylist5.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist5.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist5.setText("Name of playlist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton5.add(nameOfPlaylist5, gridBagConstraints);
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 20));
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("4:07");
+        jPanel35.add(jLabel13, java.awt.BorderLayout.EAST);
 
-        imagePlaylist5.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton5.add(imagePlaylist5, gridBagConstraints);
+        song1Btn.add(jPanel35);
 
-        jPanel30.add(playlistButton5);
+        jPanel34.setBackground(new java.awt.Color(30, 30, 30));
+        jPanel34.setLayout(new java.awt.BorderLayout());
 
-        playlistButton6.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton6.setLayout(new java.awt.GridBagLayout());
+        optionsButton.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\dots.png"));
+        jPanel34.add(optionsButton, java.awt.BorderLayout.EAST);
 
-        nameOfPlaylist6.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist6.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist6.setText("Name of playlist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton6.add(nameOfPlaylist6, gridBagConstraints);
+        song1Btn.add(jPanel34);
 
-        imagePlaylist6.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton6.add(imagePlaylist6, gridBagConstraints);
-
-        jPanel30.add(playlistButton6);
-
-        playlistButton7.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton7.setLayout(new java.awt.GridBagLayout());
-
-        nameOfPlaylist7.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist7.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist7.setText("Name of playlist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton7.add(nameOfPlaylist7, gridBagConstraints);
-
-        imagePlaylist7.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton7.add(imagePlaylist7, gridBagConstraints);
-
-        jPanel30.add(playlistButton7);
-
-        playlistButton8.setBackground(new java.awt.Color(30, 30, 30));
-        playlistButton8.setLayout(new java.awt.GridBagLayout());
-
-        nameOfPlaylist8.setFont(new java.awt.Font("STXihei", 1, 24)); // NOI18N
-        nameOfPlaylist8.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfPlaylist8.setText("Name of playlist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 27, 18, 26);
-        playlistButton8.add(nameOfPlaylist8, gridBagConstraints);
-
-        imagePlaylist8.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-image.png"));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 35, 0, 0);
-        playlistButton8.add(imagePlaylist8, gridBagConstraints);
-
-        jPanel30.add(playlistButton8);
+        jPanel30.add(song1Btn);
 
         jPanel22.add(jPanel30, java.awt.BorderLayout.CENTER);
 
@@ -705,7 +567,6 @@ public class PlaylistView extends JPanel {
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         this.add(jPanel1, java.awt.BorderLayout.CENTER);
-
     }
-
+    
 }
