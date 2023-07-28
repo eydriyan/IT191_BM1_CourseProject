@@ -28,11 +28,14 @@ public class MusicPlayer {
     private int currentTotalLength;
     private int lengthBeforePause;
     private float currentVolumePercent;
+    private boolean isVolumeSynced;
 
     private String currentLoadedSongPath;
 
     public MusicPlayer() {
         // Initialize Variables
+        this.currentVolumePercent = 1;
+        this.isVolumeSynced = false;
         this.isFirstRun = true;
         this.isPlaying = new AtomicBoolean(false);
 
@@ -42,8 +45,8 @@ public class MusicPlayer {
                 if (this.isPlaying.get()) {
                     try {
                         this.player.play();
-                    } catch (Exception e) {
                         this.isPlaying.set(false);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -54,15 +57,15 @@ public class MusicPlayer {
         musicThread.start();
     }
 
-    public void LoadSong(String songPath) {
+    public void loadSong(String songPath) {
         this.currentLoadedSongPath = songPath;
     }
 
-    public void Play() {
+    public boolean Play() {
         try {
             // Exit if currently playing already or if there are no loaded song path
             if (this.isPlaying.get() || this.currentLoadedSongPath == null || this.currentLoadedSongPath.equals(""))
-                return;
+                return false;
 
             this.inputStream = new FileInputStream(new File(this.currentLoadedSongPath));
 
@@ -89,7 +92,10 @@ public class MusicPlayer {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     public void Pause() {
@@ -100,6 +106,7 @@ public class MusicPlayer {
 
             // Set variable values
             this.isFirstRun = false;
+            this.isVolumeSynced = false;
             this.isPlaying.set(false);
             this.lengthBeforePause = this.inputStream.available();
 
@@ -119,6 +126,7 @@ public class MusicPlayer {
 
             // Set variable values
             this.isFirstRun = true;
+            this.isVolumeSynced = false;
             this.isPlaying.set(false);
 
             // Close player (will also close AudioDevice) and close FileInputStream
@@ -143,6 +151,12 @@ public class MusicPlayer {
         try {
             if (!this.isPlaying.get())
                 return 0;
+            
+            // Backup, A check to always sync volume from playback to playback
+            if (!this.isVolumeSynced) {
+                setVolume(this.currentVolumePercent);
+                this.isVolumeSynced = true;
+            }
 
             // Calculate Percent of position
             // Then return result
@@ -168,8 +182,7 @@ public class MusicPlayer {
 
             // Get VolumeControl if song is already playing
             // This is done via Reflection
-            // Reference:
-            // https://github.com/Gikkman/JavaZoom-Volume-Controll/blob/master/src/main/java/com/gikk/javazoom/JLayerTest.java
+            // Reference: https://github.com/Gikkman/JavaZoom-Volume-Controll/blob/master/src/main/java/com/gikk/javazoom/JLayerTest.java
             if (volumeControl == null) {
                 Field sourceField = JavaSoundAudioDevice.class.getDeclaredField("source");
                 sourceField.setAccessible(true);
@@ -205,7 +218,7 @@ public class MusicPlayer {
                 // so putting the right delay will set the volume when song is already loaded
                 Thread volumeSyncThread = new Thread(() -> {
                     try {
-                        Thread.sleep(8);
+                        Thread.sleep(10);
                         setVolume(currentVolumePercent);
                     } catch (Exception e) {
                         e.printStackTrace();

@@ -2,17 +2,17 @@ package com.it191.model;
 
 import java.util.ArrayList;
 
-public class AlbumModel {
-    public int albumId;
+public class CollectionModel {
+    public int collectionId;
     public String title;
     public ArrayList<SongModel> songs;
 
-
-    public int getAlbumId() {
-        return albumId;
+    
+    public int getCollectionId() {
+        return collectionId;
     }
-    public void setAlbumId(int albumId) {
-        this.albumId = albumId;
+    public void setCollectionId(int collectionId) {
+        this.collectionId = collectionId;
     }
     public String getTitle() {
         return title;
@@ -26,4 +26,6 @@ public class AlbumModel {
     public void setSongs(ArrayList<SongModel> songs) {
         this.songs = songs;
     }
+
+    
 }
