@@ -42,33 +42,30 @@ public class MusicPlayerView extends JPanel {
         javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double percent = musicController.getMusicPlayer().getCurrentPositionPercent();
+                double percent = musicController.getCurrentSongPositionPercent();
                 seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
             }
         });
 
         playBtn.addActionListener((evt) -> {
-            musicController.getMusicPlayer().Play();
-            musicController.TestPlay();
+            musicController.playSong();
             seekSliderTimerUpdate.restart();
         });
 
         pauseBtn.addActionListener((evt) -> {
-            musicController.getMusicPlayer().Pause();
-            musicController.TestPause();
+            musicController.pauseSong();
             seekSliderTimerUpdate.stop();
         });
 
         stopBtn.addActionListener((evt) -> {
-            musicController.getMusicPlayer().Stop();
-            seekSliderTimerUpdate.stop();
+            musicController.stopSong();
             seekSlider.setValue(0);
         });
 
         seekSlider.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                musicController.getMusicPlayer().Pause();
+                musicController.pauseSong();
                 seekSliderTimerUpdate.stop();
                 super.mousePressed(e);
             }
@@ -89,7 +86,7 @@ public class MusicPlayerView extends JPanel {
                             public void actionPerformed(ActionEvent e) {
                                 if (!seekSlider.getValueIsAdjusting()) {
                                     double percent = (double) seekSlider.getValue() / (double) seekSlider.getMaximum();
-                                    musicController.getMusicPlayer().seekPlay(percent);
+                                    musicController.seekPlaySong(percent);
                                     timer.stop();
                                 }
                             }
@@ -105,7 +102,7 @@ public class MusicPlayerView extends JPanel {
             @Override
             public void stateChanged(ChangeEvent e) {
                 float volume = (float) volumeSlider.getValue() / (float) volumeSlider.getMaximum();
-                musicController.getMusicPlayer().setVolume(volume);
+                musicController.setSongVolume(volume);
             }
         });
     }

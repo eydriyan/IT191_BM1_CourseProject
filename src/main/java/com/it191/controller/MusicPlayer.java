@@ -57,15 +57,15 @@ public class MusicPlayer {
         musicThread.start();
     }
 
-    public void LoadSong(String songPath) {
+    public void loadSong(String songPath) {
         this.currentLoadedSongPath = songPath;
     }
 
-    public void Play() {
+    public boolean Play() {
         try {
             // Exit if currently playing already or if there are no loaded song path
             if (this.isPlaying.get() || this.currentLoadedSongPath == null || this.currentLoadedSongPath.equals(""))
-                return;
+                return false;
 
             this.inputStream = new FileInputStream(new File(this.currentLoadedSongPath));
 
@@ -92,7 +92,10 @@ public class MusicPlayer {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     public void Pause() {
