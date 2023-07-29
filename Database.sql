@@ -56,9 +56,7 @@ CREATE TABLE Song (
 
 CREATE TABLE Collection (
 	collection_id INT PRIMARY KEY auto_increment,
-    user_id INT,
-    title VARCHAR(100) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE
+    title VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE CollectionSong (

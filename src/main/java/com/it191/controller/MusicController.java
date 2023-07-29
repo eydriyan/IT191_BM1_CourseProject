@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import com.it191.model.CollectionModel;
 import com.it191.model.SongModel;
+import com.it191.view.listeners.ISongEventListener;
+import com.it191.view.objects.SongEvent;
 
 //import javafx.scene.media.Media;
 //import javafx.scene.media.MediaPlayer;
 
-public class MusicController {
+public class MusicController extends MusicPlayer {
 
     // MediaPlayer mp;
     // String mp_song_path = "file:/C:/Users/Dell/Downloads/tests/song_2.mp3";
@@ -24,20 +26,84 @@ public class MusicController {
     // playedSongsHistory currentlySelectedSong loadedSongsToPlay
     // [ s1 s2 s3 s4 ] s5 [ s7 s8 s9 s10 ]
 
-    private MusicPlayer musicPlayer;
     private ArrayList<SongModel> playedSongsHistory;
     private ArrayList<SongModel> loadedSongsToPlay;
     private SongModel currentlySelectedSong;
 
+    private ISongEventListener songEventListener;
+
     public MusicController() {
-        musicPlayer = new MusicPlayer();
+        super();
         playedSongsHistory = new ArrayList<>();
         loadedSongsToPlay = new ArrayList<>();
     }
 
+    public void MockLoad() {
+        SongModel s1 = new SongModel();
+        s1.setTitle("s1");
+        s1.setArtist("a1");
+        s1.setSongPath(song_1);
+        SongModel s2 = new SongModel();
+        s2.setTitle("s2");
+        s2.setArtist("a2");
+        s2.setSongPath(song_2);
+        SongModel s3 = new SongModel();
+        s3.setTitle("s3");
+        s3.setArtist("a3");
+        s3.setSongPath(song_3);
+        SongModel s4 = new SongModel();
+        s4.setTitle("s4");
+        s4.setArtist("a4");
+        s4.setSongPath(song_4);
+        SongModel s5 = new SongModel();
+        s5.setTitle("s5");
+        s5.setArtist("a5");
+        s5.setSongPath(song_5);
+        SongModel s6 = new SongModel();
+        s6.setTitle("s6");
+        s6.setArtist("a6");
+        s6.setSongPath(song_6);
+        SongModel s7 = new SongModel();
+        s7.setTitle("s7");
+        s7.setArtist("a7");
+        s7.setSongPath(song_7);
+
+        this.loadedSongsToPlay.add(s1);
+        this.loadedSongsToPlay.add(s2);
+        this.loadedSongsToPlay.add(s3);
+        this.loadedSongsToPlay.add(s4);
+        this.loadedSongsToPlay.add(s5);
+        this.loadedSongsToPlay.add(s6);
+        this.loadedSongsToPlay.add(s7);
+
+        if(this.currentlySelectedSong == null) {
+            SongModel songToPlay = this.loadedSongsToPlay.remove(0);
+            this.currentlySelectedSong = songToPlay;
+            
+            this.loadSongToPlayer();
+        }
+    }
+
+    public void setSongEventListener(ISongEventListener songEventListener) {
+        this.songEventListener = songEventListener;
+    }
+
+    public void songToPlay(SongModel songModel) {
+        this.loadedSongsToPlay.add(0, songModel);
+        this.nextSong();
+    }
+
     public void addSongFromCollection(CollectionModel collectionModel) {
-        for (SongModel songModel : collectionModel.songs) {
+        for (SongModel songModel : collectionModel.getSongs()) {
             this.loadedSongsToPlay.add(songModel);
+        }
+
+        // If currentlySelectedSong is None, load from loadedSongsToPlay
+        if(this.currentlySelectedSong == null) {
+            SongModel songToPlay = this.loadedSongsToPlay.remove(0);
+            this.currentlySelectedSong = songToPlay;
+            
+            this.loadSongToPlayer();
         }
     }
 
@@ -48,6 +114,8 @@ public class MusicController {
         this.loadedSongsToPlay.add(0, this.currentlySelectedSong);
         SongModel prevSongToPlay = this.playedSongsHistory.remove(0);
         this.currentlySelectedSong = prevSongToPlay;
+
+        this.loadSongToPlayer();
         
         return true;
     }
@@ -60,30 +128,24 @@ public class MusicController {
         SongModel nextSongToPlay = this.loadedSongsToPlay.remove(0);
         this.currentlySelectedSong = nextSongToPlay;
 
+        this.loadSongToPlayer();
+
         return true;
     }
 
-    public boolean playSong() {
-        return musicPlayer.Play();
-    }
+    private void loadSongToPlayer() {
+        // Get Currently Selected Song
+        // Put to Music Player
+        this.loadSong(this.currentlySelectedSong.getSongPath());
 
-    public void pauseSong() {
-        musicPlayer.Pause();
-    }
-
-    public void stopSong() {
-        musicPlayer.Stop();
-    }
-
-    public void seekPlaySong(double positionPercent) {
-        musicPlayer.seekPlay(positionPercent);
-    }
-
-    public double getCurrentSongPositionPercent() {
-        return musicPlayer.getCurrentPositionPercent();
-    }
-
-    public void setSongVolume(float volumePercent) {
-        musicPlayer.setVolume(volumePercent);
+        // Update View(s)
+        SongEvent evt = new SongEvent(
+            new Object(),
+            currentlySelectedSong.getTitle(),
+            currentlySelectedSong.getArtist(),
+            currentlySelectedSong.getImgPath(),
+            currentlySelectedSong.getLyrics()
+        );
+        this.songEventListener.onSongUpdated(evt);
     }
 }

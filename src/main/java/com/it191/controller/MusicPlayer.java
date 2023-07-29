@@ -57,11 +57,11 @@ public class MusicPlayer {
         musicThread.start();
     }
 
-    public void loadSong(String songPath) {
+    protected void loadSong(String songPath) {
         this.currentLoadedSongPath = songPath;
     }
 
-    public boolean Play() {
+    public boolean playSong() {
         try {
             // Exit if currently playing already or if there are no loaded song path
             if (this.isPlaying.get() || this.currentLoadedSongPath == null || this.currentLoadedSongPath.equals(""))
@@ -98,7 +98,7 @@ public class MusicPlayer {
         return true;
     }
 
-    public void Pause() {
+    public void pauseSong() {
         try {
             // Exit if not playing currently
             if (!this.isPlaying.get())
@@ -118,7 +118,7 @@ public class MusicPlayer {
         }
     }
 
-    public void Stop() {
+    public void stopSong() {
         try {
             // Exit if not playing currently
             if (!this.isPlaying.get())

@@ -3,9 +3,9 @@ package com.it191.model;
 import java.util.ArrayList;
 
 public class CollectionModel {
-    public int collectionId;
-    public String title;
-    public ArrayList<SongModel> songs;
+    private int collectionId;
+    private String title;
+    private ArrayList<SongModel> songs;
 
     
     public int getCollectionId() {

@@ -1,14 +1,14 @@
 package com.it191.model;
 
 public class SongModel {
-    public int songId;
-    public String title;
-    public String genre;
-    public String artist;
-    public String lyrics;
-    public int duration;
-    public String songPath;
-    public String imgPath;
+    private int songId;
+    private String title;
+    private String genre;
+    private String artist;
+    private String lyrics;
+    private int duration;
+    private String songPath;
+    private String imgPath;
 
 
     public int getSongId() {

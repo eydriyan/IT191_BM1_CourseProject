@@ -3,12 +3,12 @@ package com.it191.model;
 import java.time.LocalDate;
 
 public class UserModel {
-    public int userId;
-    public String firstName;
-    public String lastName;
-    public LocalDate dateOfBirth;
-    public int age;
-    public String email;
+    private int userId;
+    private String firstName;
+    private String lastName;
+    private LocalDate dateOfBirth;
+    private int age;
+    private String email;
 
     
     public int getUserId() {
