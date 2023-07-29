@@ -1,13 +1,11 @@
 package com.it191.view;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,118 +23,199 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
 
     MusicController musicController;
 
-    private javax.swing.JPanel favoritesBtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
-    private javax.swing.JPanel jPanel28;
-    private javax.swing.JPanel jPanel29;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lyricsBtn;
-    private javax.swing.JLabel nameOfArtist;
-    private javax.swing.JLabel nextBtn;
-    private javax.swing.JLabel pauseBtn;
-    private javax.swing.JLabel playBtn;
-    private javax.swing.JPanel playlistsBtn;
-    private javax.swing.JLabel previousBtn;
-    private javax.swing.JTextField searchBar;
-    private javax.swing.JSlider seekSlider;
-    private javax.swing.JLabel songTitle;
-    private javax.swing.JPanel songsBtn;
-    private javax.swing.JLabel stopBtn;
-    private javax.swing.JLabel volumeIcon;
-    private javax.swing.JSlider volumeSlider;
+    private JPanel favoritesBtn;
+    private JLabel songImage;
+    private JLabel lyricsBtn;
+    private JLabel nameOfArtist;
+    private JLabel nextBtn;
+    private JLabel pauseBtn;
+    private JLabel playBtn;
+    private JPanel playlistsBtn;
+    private JLabel previousBtn;
+    private JTextField searchBar;
+    private JSlider seekSlider;
+    private JLabel songTitle;
+    private JPanel songsBtn;
+    private JLabel stopBtn;
+    private JSlider volumeSlider;
     java.awt.GridBagConstraints gridBagConstraints;
 
     public MusicPlayerView() {
         this.setLayout(new BorderLayout());
         this.setSize(1000, 1000);
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        volumeIcon = new javax.swing.JLabel();
-        volumeSlider = new javax.swing.JSlider();
-        lyricsBtn = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        songTitle = new javax.swing.JLabel();
-        nameOfArtist = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jPanel18 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        seekSlider = new javax.swing.JSlider();
-        jPanel17 = new javax.swing.JPanel();
-        previousBtn = new javax.swing.JLabel();
-        pauseBtn = new javax.swing.JLabel();
-        playBtn = new javax.swing.JLabel();
-        stopBtn = new javax.swing.JLabel();
-        nextBtn = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel19 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
-        songsBtn = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        playlistsBtn = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        favoritesBtn = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel23 = new javax.swing.JPanel();
-        searchBar = new javax.swing.JTextField();
-        jPanel24 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel22 = new javax.swing.JPanel();
-        jPanel27 = new javax.swing.JPanel();
-        jPanel26 = new javax.swing.JPanel();
-        jPanel28 = new javax.swing.JPanel();
-        jPanel29 = new javax.swing.JPanel();
+        this.onUISetup();
+        this.onControlsSetup();
+    }
+
+    @Override
+    public void onSongUpdated(SongEvent evt) {
+        // TODO Auto-generated method stub
+        songTitle.setText(evt.getTitle());
+        nameOfArtist.setText(evt.getArtist());
+    }
+
+    private void onControlsSetup() {
+        musicController = new MusicController();
+        musicController.setSongEventListener(this);
+        musicController.MockLoad();
+
+        javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double percent = musicController.getCurrentPositionPercent();
+                seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
+            }
+        });
+
+        playBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicController.playSong();
+                seekSliderTimerUpdate.restart();
+            }
+        });
+        pauseBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicController.pauseSong();
+                seekSliderTimerUpdate.stop();
+            }
+        });
+        stopBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicController.stopSong();
+                seekSliderTimerUpdate.stop();
+                seekSlider.setValue(0);
+            }
+        });
+        previousBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicController.stopSong();
+                seekSliderTimerUpdate.stop();
+                seekSlider.setValue(0);
+
+                if(!musicController.prevSong()) {
+                    JOptionPane.showMessageDialog(null, "Song History has No Songs yet", "Prev Song", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+        });
+        nextBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                musicController.stopSong();
+                seekSliderTimerUpdate.stop();
+                seekSlider.setValue(0);
+
+                if(!musicController.nextSong()) {
+                    JOptionPane.showMessageDialog(null, "No Queued Songs Left", "Next Song", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+        });
+
+        seekSlider.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                musicController.pauseSong();
+                seekSliderTimerUpdate.stop();
+                super.mousePressed(e);
+            }
+        });
+        seekSlider.addChangeListener(new ChangeListener() {
+            private javax.swing.Timer timer;
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (seekSlider.getValueIsAdjusting()) {
+                } else {
+                    if (timer != null && timer.isRunning()) {
+                        timer.restart();
+                    } else {
+                        timer = new javax.swing.Timer(200, new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                if (!seekSlider.getValueIsAdjusting()) {
+                                    double percent = (double) seekSlider.getValue() / (double) seekSlider.getMaximum();
+                                    musicController.seekPlay(percent);
+                                    timer.stop();
+                                }
+                            }
+                        });
+                        timer.setRepeats(false);
+                        timer.start();
+                    }
+                }
+            }
+        });
+        volumeSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                float volume = (float) volumeSlider.getValue() / (float) volumeSlider.getMaximum();
+                musicController.setVolume(volume);
+            }
+        });
+    }
+
+    private void onUISetup() {
+        volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
+        lyricsBtn = new JLabel();
+        songTitle = new JLabel();
+        nameOfArtist = new JLabel();
+        songImage = new JLabel();
+        seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 100000, 0);
+        previousBtn = new JLabel();
+        pauseBtn = new JLabel();
+        playBtn = new JLabel();
+        stopBtn = new JLabel();
+        nextBtn = new JLabel();
+        playlistsBtn = new JPanel();
+        favoritesBtn = new JPanel();
+        songsBtn = new JPanel();
+        searchBar = new JTextField();
+
+        
+        JPanel jPanel1 = new JPanel();
+        JPanel jPanel2 = new JPanel();
+        JPanel jPanel14 = new JPanel();
+        JLabel volumeIcon = new JLabel();
+        JPanel jPanel16 = new JPanel();
+        JPanel jPanel18 = new JPanel();
+        JPanel jPanel15 = new JPanel();
+        JPanel jPanel17 = new JPanel();
+        JPanel jPanel4 = new JPanel();
+        JPanel jPanel3 = new JPanel();
+        JLabel jLabel7 = new JLabel();
+        JLabel jLabel8 = new JLabel();
+        JPanel jPanel5 = new JPanel();
+        JPanel jPanel9 = new JPanel();
+        JPanel jPanel7 = new JPanel();
+        JPanel jPanel8 = new JPanel();
+        JPanel jPanel10 = new JPanel();
+        JPanel jPanel12 = new JPanel();
+        JPanel jPanel11 = new JPanel();
+        JPanel jPanel19 = new JPanel();
+        JLabel jLabel25 = new JLabel();
+        JPanel jPanel21 = new JPanel();
+        JLabel jLabel2 = new JLabel();
+        JLabel jLabel4 = new JLabel();
+        JLabel jLabel3 = new JLabel();
+        JLabel jLabel14 = new JLabel();
+        JLabel jLabel1 = new JLabel();
+        JLabel jLabel9 = new JLabel();
+        JPanel jPanel13 = new JPanel();
+        JPanel jPanel23 = new JPanel();
+        JPanel jPanel24 = new JPanel();
+        JLabel jLabel12 = new JLabel();
+        JScrollPane jScrollPane1 = new JScrollPane();
+        JPanel jPanel22 = new JPanel();
+        JPanel jPanel27 = new JPanel();
+        JPanel jPanel26 = new JPanel();
+        JPanel jPanel28 = new JPanel();
+        JPanel jPanel29 = new JPanel();
 
         setMinimumSize(new java.awt.Dimension(1400, 900));
         setPreferredSize(new java.awt.Dimension(1400, 900));
@@ -491,60 +570,6 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         this.add(jPanel1, java.awt.BorderLayout.CENTER);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                double percent = musicController.getCurrentSongPositionPercent();
-                seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
-            }
-        });
-
-        seekSlider.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                musicController.pauseSong();
-                seekSliderTimerUpdate.stop();
-                super.mousePressed(e);
-            }
-        });
-
-        seekSlider.addChangeListener(new ChangeListener() {
-            private javax.swing.Timer timer;
-
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if (seekSlider.getValueIsAdjusting()) {
-                } else {
-                    if (timer != null && timer.isRunning()) {
-                        timer.restart();
-                    } else {
-                        timer = new javax.swing.Timer(200, new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                if (!seekSlider.getValueIsAdjusting()) {
-                                    double percent = (double) seekSlider.getValue() / (double) seekSlider.getMaximum();
-                                    musicController.seekPlaySong(percent);
-                                    timer.stop();
-                                }
-                            }
-                        });
-                        timer.setRepeats(false);
-                        timer.start();
-                    }
-                }
-            }
-        });
-
-        volumeSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                float volume = (float) volumeSlider.getValue() / (float) volumeSlider.getMaximum();
-                musicController.setSongVolume(volume);
-            }
-        });
     }
 
 }
