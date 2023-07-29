@@ -15,13 +15,13 @@ public class MusicController extends MusicPlayer {
     // MediaPlayer mp;
     // String mp_song_path = "file:/C:/Users/Dell/Downloads/tests/song_2.mp3";
 
-    String song_1 = "C://Users//Dell//Downloads//tests//Happy Together.mp3"; // yung kay mam
-    String song_2 = "C:/Users/Dell/Downloads/tests/song_2.mp3";
-    String song_3 = "C:/Users/Dell/Downloads/tests/song_3.mp3";
-    String song_4 = "C:/Users/Dell/Downloads/tests/song_4.mp3";
-    String song_5 = "C:/Users/Dell/Downloads/tests/song_5.mp3";
-    String song_6 = "C:/Users/Dell/Downloads/tests/song_6.mp3";
-    String song_7 = "C:/Users/Dell/Downloads/tests/song_7.mp3";
+    String song_1 = "songs/Happy Together.mp3"; // yung kay mam
+    String song_2 = "songs/song_2.mp3";
+    String song_3 = "songs/song_3.mp3";
+    String song_4 = "songs/song_4.mp3";
+    String song_5 = "songs/song_5.mp3";
+    String song_6 = "songs/song_6.mp3";
+    String song_7 = "songs/song_7.mp3";
 
     // playedSongsHistory currentlySelectedSong loadedSongsToPlay
     // [ s1 s2 s3 s4 ] s5 [ s7 s8 s9 s10 ]
