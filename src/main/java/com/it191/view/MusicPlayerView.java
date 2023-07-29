@@ -15,26 +15,12 @@ import com.it191.controller.MusicController;
 public class MusicPlayerView extends JPanel {
 
     MusicController musicController;
-    /* 
-    playBtn = new JButton("Play");
-    pauseBtn = new JButton("Pause");
-    stopBtn = new JButton("Stop");
-    seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 10000, 0);
-    volumeSlider = new JSlider(JSlider.VERTICAL, 0, 100, 90);
-    volumeSlider.setPreferredSize(new Dimension(20, 120));
-    */
-    
 
     private javax.swing.JPanel favoritesBtn;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
@@ -63,12 +49,6 @@ public class MusicPlayerView extends JPanel {
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
-    private javax.swing.JPanel jPanel32;
-    private javax.swing.JPanel jPanel33;
-    private javax.swing.JPanel jPanel34;
-    private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
@@ -78,14 +58,12 @@ public class MusicPlayerView extends JPanel {
     private javax.swing.JLabel lyricsBtn;
     private javax.swing.JLabel nameOfArtist;
     private javax.swing.JLabel nextBtn;
-    private javax.swing.JLabel optionsButton;
     private javax.swing.JLabel pauseBtn;
     private javax.swing.JLabel playBtn;
     private javax.swing.JPanel playlistsBtn;
     private javax.swing.JLabel previousBtn;
     private javax.swing.JTextField searchBar;
     private javax.swing.JSlider seekSlider;
-    private javax.swing.JPanel song1Btn;
     private javax.swing.JLabel songTitle;
     private javax.swing.JPanel songsBtn;
     private javax.swing.JLabel stopBtn;
@@ -96,16 +74,7 @@ public class MusicPlayerView extends JPanel {
     public MusicPlayerView() {
         musicController = new MusicController();
         this.setLayout(new BorderLayout());
-        this.setSize(1000, 1000);;
-
-        /*
-        playBtn = new JButton("Play");
-        pauseBtn = new JButton("Pause");
-        stopBtn = new JButton("Stop");
-        seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 100000, 0);
-        volumeSlider = new JSlider(JSlider.VERTICAL, 0, 100, 100);
-        volumeSlider.setPreferredSize(new Dimension(20, 120));
-         */
+        this.setSize(1000, 1000);
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -160,19 +129,6 @@ public class MusicPlayerView extends JPanel {
         jPanel26 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
         jPanel29 = new javax.swing.JPanel();
-        jPanel30 = new javax.swing.JPanel();
-        song1Btn = new javax.swing.JPanel();
-        jPanel33 = new javax.swing.JPanel();
-        jPanel31 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel22 = new javax.swing.JLabel();
-        jPanel32 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jPanel35 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jPanel34 = new javax.swing.JPanel();
-        optionsButton = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(1400, 900));
         setPreferredSize(new java.awt.Dimension(1400, 900));
@@ -500,91 +456,19 @@ public class MusicPlayerView extends JPanel {
         jPanel29.setBackground(new java.awt.Color(51, 51, 51));
         jPanel29.setPreferredSize(new java.awt.Dimension(0, 10));
         jPanel22.add(jPanel29, java.awt.BorderLayout.SOUTH);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        jPanel30.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel30.setLayout(new java.awt.GridLayout(10, 1));
+        //SongsPanel songlist = new SongsPanel();
 
-        song1Btn.setBackground(new java.awt.Color(30, 30, 30));
-        song1Btn.setLayout(new java.awt.GridLayout(1, 0));
+        //FavoritesPanel favoritesPanel = new FavoritesPanel();
 
-        jPanel33.setBackground(new java.awt.Color(30, 30, 30));
-        jPanel33.setLayout(new java.awt.BorderLayout());
+        PlaylistPanel playlistPanel = new PlaylistPanel();
 
-        jPanel31.setBackground(new java.awt.Color(30, 30, 30));
-        jPanel31.setLayout(new java.awt.GridBagLayout());
+        //LyricsPanel lyricsPanel = new LyricsPanel();
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 65;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 14);
-        jPanel31.add(jCheckBox1, gridBagConstraints);
-        jCheckBox1.setOpaque(false);
+        jPanel22.add(playlistPanel, java.awt.BorderLayout.CENTER);
 
-        jLabel22.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover.jpg"));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 27;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
-        jPanel31.add(jLabel22, gridBagConstraints);
-
-        jPanel33.add(jPanel31, java.awt.BorderLayout.WEST);
-
-        jPanel32.setBackground(new java.awt.Color(30, 30, 30));
-        jPanel32.setLayout(new java.awt.GridBagLayout());
-
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 20));
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Title");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 33;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 25, 0, 0);
-        jPanel32.add(jLabel20, gridBagConstraints);
-
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 20));
-        jLabel21.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel21.setText("Artist");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipady = 33;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 25, 0, 22);
-        jPanel32.add(jLabel21, gridBagConstraints);
-
-        jPanel33.add(jPanel32, java.awt.BorderLayout.EAST);
-
-        song1Btn.add(jPanel33);
-
-        jPanel35.setBackground(new java.awt.Color(30, 30, 30));
-        jPanel35.setLayout(new java.awt.BorderLayout());
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 20));
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("4:07");
-        jPanel35.add(jLabel13, java.awt.BorderLayout.EAST);
-
-        song1Btn.add(jPanel35);
-
-        jPanel34.setBackground(new java.awt.Color(30, 30, 30));
-        jPanel34.setLayout(new java.awt.BorderLayout());
-
-        optionsButton.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\dots.png"));
-        jPanel34.add(optionsButton, java.awt.BorderLayout.EAST);
-
-        song1Btn.add(jPanel34);
-
-        jPanel30.add(song1Btn);
-
-        jPanel22.add(jPanel30, java.awt.BorderLayout.CENTER);
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         jScrollPane1.setViewportView(jPanel22);
 
@@ -600,15 +484,6 @@ public class MusicPlayerView extends JPanel {
 
         this.add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        /* 
-        this.add(playBtn);
-        this.add(pauseBtn);
-        this.add(stopBtn);
-        this.add(seekSlider);
-        this.add(volumeSlider);
-        */
-        
-
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
@@ -618,25 +493,6 @@ public class MusicPlayerView extends JPanel {
                 seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
             }
         });
-
-        /* 
-        playBtn.addActionListener((evt) -> {
-            musicController.playSong();
-            seekSliderTimerUpdate.restart();
-        });
-
-        pauseBtn.addActionListener((evt) -> {
-            musicController.pauseSong();
-            seekSliderTimerUpdate.stop();
-        });
-
-        stopBtn.addActionListener((evt) -> {
-            musicController.stopSong();
-            seekSlider.setValue(0);
-        });
-        */
-
-        
 
         seekSlider.addMouseListener(new MouseAdapter() {
             @Override
