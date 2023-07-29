@@ -1,11 +1,12 @@
 package com.it191.view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,7 +39,17 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
     private JPanel songsBtn;
     private JLabel stopBtn;
     private JSlider volumeSlider;
-    java.awt.GridBagConstraints gridBagConstraints;
+    private GridBagConstraints gridBagConstraints;
+
+    private JLabel songsLabel;
+    private JLabel playlistLabel;
+    private JLabel favoritesLabel;
+    private JPanel panelHolder;
+
+    private LyricsPanel lyricsPanel;
+    private FavoritesPanel favoritesPanel;
+    private SongsPanel songsPanel;
+    private PlaylistPanel playlistPanel;
 
     public MusicPlayerView() {
         this.setLayout(new BorderLayout());
@@ -46,13 +57,61 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
 
         this.onUISetup();
         this.onControlsSetup();
+        this.changeViewControlSetup();
     }
 
     @Override
     public void onSongUpdated(SongEvent evt) {
-        // TODO Auto-generated method stub
         songTitle.setText(evt.getTitle());
         nameOfArtist.setText(evt.getArtist());
+        lyricsPanel.setLyrics(evt.getLyrics());
+    }
+
+    private void changeViewControlSetup() {
+        panelHolder.add(lyricsPanel, "Lyrics");
+        panelHolder.add(favoritesBtn, "Favorites");
+        panelHolder.add(songsPanel, "Songs");
+        panelHolder.add(playlistPanel, "Playlists");
+
+        lyricsBtn.addMouseListener(
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent event) {
+                    CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+                    cardLayout.show(panelHolder, "Lyrics");
+                }
+            }
+        );
+
+        songsBtn.addMouseListener(
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent event) {
+                    CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+                    cardLayout.show(panelHolder, "Songs");
+                }
+            }
+        );
+        
+        playlistsBtn.addMouseListener(
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent event) {
+                    CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+                    cardLayout.show(panelHolder, "Playlists");
+                }
+            }
+        );
+
+        favoritesBtn.addMouseListener(
+            new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent event) {
+                    CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+                    cardLayout.show(panelHolder, "Favorites");
+                }
+            }
+        );
     }
 
     private void onControlsSetup() {
@@ -161,6 +220,11 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
     }
 
     private void onUISetup() {
+        lyricsPanel = new LyricsPanel();
+        favoritesPanel = new FavoritesPanel();
+        songsPanel = new SongsPanel();
+        playlistPanel = new PlaylistPanel();
+
         volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
         lyricsBtn = new JLabel();
         songTitle = new JLabel();
@@ -176,8 +240,11 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         favoritesBtn = new JPanel();
         songsBtn = new JPanel();
         searchBar = new JTextField();
+        songsLabel = new JLabel();
+        playlistLabel = new JLabel();
+        favoritesLabel = new JLabel();
+        panelHolder = new JPanel();
 
-        
         JPanel jPanel1 = new JPanel();
         JPanel jPanel2 = new JPanel();
         JPanel jPanel14 = new JPanel();
@@ -200,18 +267,14 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         JPanel jPanel19 = new JPanel();
         JLabel jLabel25 = new JLabel();
         JPanel jPanel21 = new JPanel();
-        JLabel jLabel2 = new JLabel();
         JLabel jLabel4 = new JLabel();
-        JLabel jLabel3 = new JLabel();
         JLabel jLabel14 = new JLabel();
-        JLabel jLabel1 = new JLabel();
         JLabel jLabel9 = new JLabel();
         JPanel jPanel13 = new JPanel();
         JPanel jPanel23 = new JPanel();
         JPanel jPanel24 = new JPanel();
         JLabel jLabel12 = new JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
-        JPanel jPanel22 = new JPanel();
         JPanel jPanel27 = new JPanel();
         JPanel jPanel26 = new JPanel();
         JPanel jPanel28 = new JPanel();
@@ -401,15 +464,15 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         songsBtn.setPreferredSize(new java.awt.Dimension(250, 97));
         songsBtn.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 30));
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Songs");
+        songsLabel.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        songsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        songsLabel.setText("Songs");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(25, 31, 31, 76);
-        songsBtn.add(jLabel2, gridBagConstraints);
+        songsBtn.add(songsLabel, gridBagConstraints);
 
         jLabel4.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\songs-icon.png"));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -430,15 +493,15 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         playlistsBtn.setPreferredSize(new java.awt.Dimension(250, 97));
         playlistsBtn.setLayout(new java.awt.GridBagLayout());
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 30));
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Playlists");
+        playlistLabel.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        playlistLabel.setForeground(new java.awt.Color(255, 255, 255));
+        playlistLabel.setText("Playlists");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(27, 18, 29, 48);
-        playlistsBtn.add(jLabel3, gridBagConstraints);
+        playlistsBtn.add(playlistLabel, gridBagConstraints);
 
         jLabel14.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-icon.png"));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -459,16 +522,16 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         favoritesBtn.setPreferredSize(new java.awt.Dimension(250, 97));
         favoritesBtn.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30));
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Favorites");
+        favoritesLabel.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        favoritesLabel.setForeground(new java.awt.Color(255, 255, 255));
+        favoritesLabel.setText("Favorites");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(29, 25, 27, 34);
-        favoritesBtn.add(jLabel1, gridBagConstraints);
+        favoritesBtn.add(favoritesLabel, gridBagConstraints);
 
         jLabel9.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\favorites-icon.png"));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -523,41 +586,41 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         jScrollPane1.setBackground(new java.awt.Color(51, 51, 51));
         jScrollPane1.setBorder(null);
 
-        jPanel22.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel22.setPreferredSize(new java.awt.Dimension(200, 1000));
-        jPanel22.setLayout(new java.awt.BorderLayout());
+        panelHolder.setBackground(new java.awt.Color(51, 51, 51));
+        panelHolder.setPreferredSize(new java.awt.Dimension(200, 1000));
+        panelHolder.setLayout(new CardLayout());
 
-        jPanel27.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel27.setPreferredSize(new java.awt.Dimension(10, 1000));
-        jPanel27.setLayout(null);
-        jPanel22.add(jPanel27, java.awt.BorderLayout.LINE_START);
-
-        jPanel26.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel26.setPreferredSize(new java.awt.Dimension(1180, 10));
-        jPanel22.add(jPanel26, java.awt.BorderLayout.PAGE_START);
-
-        jPanel28.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel28.setPreferredSize(new java.awt.Dimension(10, 990));
-        jPanel22.add(jPanel28, java.awt.BorderLayout.LINE_END);
-
-        jPanel29.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel29.setPreferredSize(new java.awt.Dimension(0, 10));
-        jPanel22.add(jPanel29, java.awt.BorderLayout.SOUTH);
+        //jPanel27.setBackground(new java.awt.Color(51, 51, 51));
+        //jPanel27.setPreferredSize(new java.awt.Dimension(10, 1000));
+        //jPanel27.setLayout(null);
+        //panelHolder.add(jPanel27, java.awt.BorderLayout.LINE_START);
+//
+        //jPanel26.setBackground(new java.awt.Color(51, 51, 51));
+        //jPanel26.setPreferredSize(new java.awt.Dimension(1180, 10));
+        //panelHolder.add(jPanel26, java.awt.BorderLayout.PAGE_START);
+//
+        //jPanel28.setBackground(new java.awt.Color(51, 51, 51));
+        //jPanel28.setPreferredSize(new java.awt.Dimension(10, 990));
+        //panelHolder.add(jPanel28, java.awt.BorderLayout.LINE_END);
+//
+        //jPanel29.setBackground(new java.awt.Color(51, 51, 51));
+        //jPanel29.setPreferredSize(new java.awt.Dimension(0, 10));
+        //panelHolder.add(jPanel29, java.awt.BorderLayout.SOUTH);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         //SongsPanel songlist = new SongsPanel();
 
         //FavoritesPanel favoritesPanel = new FavoritesPanel();
 
-        PlaylistPanel playlistPanel = new PlaylistPanel();
+        //PlaylistPanel playlistPanel = new PlaylistPanel();
 
         //LyricsPanel lyricsPanel = new LyricsPanel();
 
-        jPanel22.add(playlistPanel, java.awt.BorderLayout.CENTER);
+        //panelHolder.add(playlistPanel, java.awt.BorderLayout.CENTER);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        jScrollPane1.setViewportView(jPanel22);
+        jScrollPane1.setViewportView(panelHolder);
 
         jPanel13.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
