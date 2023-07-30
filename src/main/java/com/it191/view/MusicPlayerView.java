@@ -69,7 +69,7 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
 
     private void changeViewControlSetup() {
         panelHolder.add(lyricsPanel, "Lyrics");
-        panelHolder.add(favoritesBtn, "Favorites");
+        panelHolder.add(favoritesPanel, "Favorites");
         panelHolder.add(songsPanel, "Songs");
         panelHolder.add(playlistPanel, "Playlists");
 
@@ -634,5 +634,4 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
 
         this.add(jPanel1, java.awt.BorderLayout.CENTER);
     }
-
 }
