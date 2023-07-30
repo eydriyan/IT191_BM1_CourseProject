@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,6 +53,14 @@ public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISon
     private SongsPanel songsPanel;
     private PlaylistPanel playlistPanel;
 
+    javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double percent = musicController.getCurrentPositionPercent();
+                seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
+            }
+        });
+
     public MusicPlayerView() {
         this.setLayout(new BorderLayout());
         this.setSize(1000, 1000);
@@ -70,7 +79,10 @@ public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISon
 
     @Override
     public void onSongRequest(SongEvent evt) {
+        musicController.stopSong();
         musicController.songToPlay(evt);
+        seekSliderTimerUpdate.stop();
+        seekSlider.setValue(0);
     }
 
     
@@ -96,6 +108,7 @@ public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISon
                 public void mouseClicked(MouseEvent event) {
                     CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
                     cardLayout.show(panelHolder, "Songs");
+                    songsPanel.onRefreshSongs();
                 }
             }
         );
@@ -116,29 +129,38 @@ public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISon
                 public void mouseClicked(MouseEvent event) {
                     CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
                     cardLayout.show(panelHolder, "Favorites");
+                    favoritesPanel.onRefreshSongs();
                 }
             }
         );
     }
 
     private void onControlsSetup() {
+        lyricsPanel = new LyricsPanel();
+        favoritesPanel = new FavoritesPanel();
+        songsPanel = new SongsPanel();
+        playlistPanel = new PlaylistPanel();
+
         musicController = new MusicController();
         musicController.setSongUpdateListener(this);
-        musicController.MockLoad();
 
-        javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                double percent = musicController.getCurrentPositionPercent();
-                seekSlider.setValue((int) (percent * seekSlider.getMaximum()));
-            }
-        });
+        songsPanel.setSongRequestListener(this);
+        favoritesPanel.setSongRequestListener(this);
 
         playBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.playSong();
+                if(!musicController.playSong()) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "No Song to Play",
+                        "Play Error",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
                 seekSliderTimerUpdate.restart();
+                
             }
         });
         pauseBtn.addMouseListener(new MouseAdapter() {
@@ -227,11 +249,6 @@ public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISon
     }
 
     private void onUISetup() {
-        lyricsPanel = new LyricsPanel();
-        favoritesPanel = new FavoritesPanel();
-        songsPanel = new SongsPanel();
-        playlistPanel = new PlaylistPanel();
-
         volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 100);
         lyricsBtn = new JLabel();
         songTitle = new JLabel();

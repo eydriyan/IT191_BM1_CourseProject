@@ -59,4 +59,12 @@ public class SongModel {
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
+
+    public boolean equalsSong(SongModel obj) {
+        if (!this.title.equals(obj.title))
+            return false;
+        if (!this.artist.equals(obj.artist))
+            return false;
+        return true;
+    }
 }

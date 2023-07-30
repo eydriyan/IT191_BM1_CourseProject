@@ -16,8 +16,6 @@ public class SongsPanel extends JPanel {
     public SongsPanel() {
         this.onUISetup();
         songsController = new SongsController();
-
-        this.onRefreshSongs();
     }
 
     public void setSongRequestListener(ISongRequestListener songRequestListener) {
@@ -29,7 +27,7 @@ public class SongsPanel extends JPanel {
         this.setLayout(new java.awt.GridLayout(10, 1));
     }
 
-    private void onRefreshSongs() {
+    public void onRefreshSongs() {
         ArrayList<SongModel> songs = songsController.getSongs();
 
         this.removeAll();

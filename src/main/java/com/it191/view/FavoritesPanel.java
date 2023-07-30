@@ -16,8 +16,10 @@ public class FavoritesPanel extends JPanel {
     public FavoritesPanel() {
         this.onUISetup();
         favoritesController = new FavoritesController();
+    }
 
-        this.onRefreshSongs();
+    public void setSongRequestListener(ISongRequestListener songRequestListener) {
+        this.songRequestListener = songRequestListener;
     }
 
     private void onUISetup() {
@@ -25,7 +27,7 @@ public class FavoritesPanel extends JPanel {
         this.setLayout(new java.awt.GridLayout(10, 1));
     }
 
-    private void onRefreshSongs() {
+    public void onRefreshSongs() {
         ArrayList<SongModel> songs = favoritesController.getFavoriteSongs();
 
         this.removeAll();
