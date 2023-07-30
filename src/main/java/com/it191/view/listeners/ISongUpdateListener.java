@@ -4,6 +4,6 @@ import java.util.EventListener;
 
 import com.it191.view.objects.SongEvent;
 
-public interface ISongEventListener extends EventListener {
+public interface ISongUpdateListener extends EventListener {
     public void onSongUpdated(SongEvent evt);
 }

@@ -71,6 +71,27 @@ public class SongRepository extends RepositoryBase {
         return songs;
     }
 
+    public ArrayList<SongModel> getAllSongsFromCollection(String collectionTitle) {
+        ArrayList<SongModel> songs = new ArrayList<>();
+        try (Connection connection = getSqlConnection()) {
+            String selectQuery = "SELECT collection_id FROM Collection WHERE Collection.title = ?";
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            statement.setString(1, collectionTitle);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("collection_id");
+
+                CollectionModel collectionModel = new CollectionModel();
+                collectionModel.setCollectionId(id);
+                songs = getAllSongsFromCollection(collectionModel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return songs;
+    }
+
     private SongModel mapResultSetToSongModel(ResultSet resultSet) throws SQLException {
         SongModel song = new SongModel();
         song.setSongId(resultSet.getInt("song_id"));

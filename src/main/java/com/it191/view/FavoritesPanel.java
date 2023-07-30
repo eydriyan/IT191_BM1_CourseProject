@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import com.it191.controller.FavoritesController;
+import com.it191.model.SongModel;
+import com.it191.view.listeners.ISongRequestListener;
 
 public class FavoritesPanel extends JPanel {
 
     private FavoritesController favoritesController;
-    private ArrayList<SongItem> songItems;
+    private ISongRequestListener songRequestListener;
 
     public FavoritesPanel() {
         this.onUISetup();
         favoritesController = new FavoritesController();
-        songItems = new ArrayList<>();
 
         this.onRefreshSongs();
     }
@@ -25,11 +26,12 @@ public class FavoritesPanel extends JPanel {
     }
 
     private void onRefreshSongs() {
-        songItems.add(new SongItem("Song 1", "Artist 1", "", ""));
-        songItems.add(new SongItem("Song 2", "Artist 2", "", ""));
-        songItems.add(new SongItem("Song 3", "Artist 3", "", ""));
-        
-        for (SongItem songItem : songItems) {
+        ArrayList<SongModel> songs = favoritesController.getFavoriteSongs();
+
+        this.removeAll();
+        for (SongModel songModel : songs) {
+            SongItem songItem = new SongItem(songModel);
+            songItem.setSongRequestListener(songRequestListener);
             this.add(songItem);
         }
 

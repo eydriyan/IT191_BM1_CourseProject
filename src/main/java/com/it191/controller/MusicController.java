@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.it191.model.CollectionModel;
 import com.it191.model.SongModel;
-import com.it191.view.listeners.ISongEventListener;
+import com.it191.view.listeners.ISongUpdateListener;
 import com.it191.view.objects.SongEvent;
 
 //import javafx.scene.media.Media;
@@ -35,7 +35,7 @@ public class MusicController extends MusicPlayer {
     private ArrayList<SongModel> loadedSongsToPlay;
     private SongModel currentlySelectedSong;
 
-    private ISongEventListener songEventListener;
+    private ISongUpdateListener songUpdateListener;
 
     public MusicController() {
         super();
@@ -89,11 +89,20 @@ public class MusicController extends MusicPlayer {
         }
     }
 
-    public void setSongEventListener(ISongEventListener songEventListener) {
-        this.songEventListener = songEventListener;
+    public void setSongUpdateListener(ISongUpdateListener songUpdateListener) {
+        this.songUpdateListener = songUpdateListener;
     }
 
-    public void songToPlay(SongModel songModel) {
+    public void songToPlay(SongEvent evt) {
+        SongModel songModel = new SongModel();
+        songModel.setTitle(evt.getTitle());
+        songModel.setArtist(evt.getArtist());
+        songModel.setDuration(evt.getDuration());
+        songModel.setImgPath(evt.getImgPath());
+        songModel.setLyrics(evt.getLyrics());
+        songModel.setSongId(evt.getSongId());
+        songModel.setSongPath(evt.getSongPath());
+
         this.loadedSongsToPlay.add(0, songModel);
         this.nextSong();
     }
@@ -155,6 +164,6 @@ public class MusicController extends MusicPlayer {
             currentlySelectedSong.getImgPath(),
             currentlySelectedSong.getLyrics()
         );
-        this.songEventListener.onSongUpdated(evt);
+        this.songUpdateListener.onSongUpdated(evt);
     }
 }

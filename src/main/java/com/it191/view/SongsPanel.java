@@ -5,18 +5,23 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import com.it191.controller.SongsController;
+import com.it191.model.SongModel;
+import com.it191.view.listeners.ISongRequestListener;
 
 public class SongsPanel extends JPanel {
 
     private SongsController songsController;
-    private ArrayList<SongItem> songItems;
+    private ISongRequestListener songRequestListener;
 
     public SongsPanel() {
         this.onUISetup();
         songsController = new SongsController();
-        songItems = new ArrayList<>();
 
         this.onRefreshSongs();
+    }
+
+    public void setSongRequestListener(ISongRequestListener songRequestListener) {
+        this.songRequestListener = songRequestListener;
     }
 
     private void onUISetup() {
@@ -25,13 +30,12 @@ public class SongsPanel extends JPanel {
     }
 
     private void onRefreshSongs() {
-        songItems.add(new SongItem("Song 1", "Artist 1", "", ""));
-        songItems.add(new SongItem("Song 2", "Artist 2", "", ""));
-        songItems.add(new SongItem("Song 3", "Artist 3", "", ""));
-        songItems.add(new SongItem("Song 4", "Artist 4", "", ""));
-        songItems.add(new SongItem("Song 5", "Artist 5", "", ""));
+        ArrayList<SongModel> songs = songsController.getSongs();
 
-        for (SongItem songItem : songItems) {
+        this.removeAll();
+        for (SongModel songModel : songs) {
+            SongItem songItem = new SongItem(songModel);
+            songItem.setSongRequestListener(songRequestListener);
             this.add(songItem);
         }
 

@@ -1,10 +1,16 @@
 package com.it191.view;
 
 import java.awt.GridBagConstraints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.it191.model.SongModel;
+import com.it191.view.listeners.ISongRequestListener;
+import com.it191.view.objects.SongEvent;
 
 public class SongItem extends JPanel {
 
@@ -18,12 +24,37 @@ public class SongItem extends JPanel {
     private JLabel optionsButton;
     private GridBagConstraints gridBagConstraints;
 
-    public SongItem(String title, String artist, String duration, String imgPath) {
+    private ISongRequestListener songRequestListener;
+
+    public SongItem(SongModel songModel) {
         this.onUISetup();
 
-        titleHolder.setText(title);
-        artistHolder.setText(artist);
-        //durationHolder.setText(duration);
+        titleHolder.setText(songModel.getTitle());
+        artistHolder.setText(songModel.getArtist());
+
+        imageHolder.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (songRequestListener == null)
+                    return;
+
+                SongEvent songEvent = new SongEvent(
+                    e,
+                    songModel.getSongId(),
+                    songModel.getTitle(),
+                    songModel.getArtist(),
+                    songModel.getLyrics(),
+                    songModel.getDuration(),
+                    songModel.getSongPath(),
+                    songModel.getImgPath()
+                );
+                songRequestListener.onSongRequest(songEvent);
+            }
+        });
+    }
+
+    public void setSongRequestListener(ISongRequestListener songRequestListener) {
+        this.songRequestListener = songRequestListener;
     }
 
     private void onUISetup() {

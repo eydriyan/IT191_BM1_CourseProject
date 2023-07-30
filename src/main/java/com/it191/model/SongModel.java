@@ -3,14 +3,20 @@ package com.it191.model;
 public class SongModel {
     private int songId;
     private String title;
-    private String genre;
     private String artist;
     private String lyrics;
     private int duration;
     private String songPath;
     private String imgPath;
 
+    public SongModel() {}
 
+    // For DEBUG
+    public SongModel(String title, String artist) {
+        this.title = title;
+        this.artist = artist;
+    }
+    
     public int getSongId() {
         return songId;
     }
@@ -22,12 +28,6 @@ public class SongModel {
     }
     public void setTitle(String title) {
         this.title = title;
-    }
-    public String getGenre() {
-        return genre;
-    }
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
     public String getArtist() {
         return artist;

@@ -17,10 +17,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.it191.controller.MusicController;
-import com.it191.view.listeners.ISongEventListener;
+import com.it191.view.listeners.ISongRequestListener;
+import com.it191.view.listeners.ISongUpdateListener;
 import com.it191.view.objects.SongEvent;
 
-public class MusicPlayerView extends JPanel implements ISongEventListener{
+public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISongRequestListener {
 
     MusicController musicController;
 
@@ -67,6 +68,12 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
         lyricsPanel.setLyrics(evt.getLyrics());
     }
 
+    @Override
+    public void onSongRequest(SongEvent evt) {
+        musicController.songToPlay(evt);
+    }
+
+    
     private void changeViewControlSetup() {
         panelHolder.add(lyricsPanel, "Lyrics");
         panelHolder.add(favoritesPanel, "Favorites");
@@ -116,7 +123,7 @@ public class MusicPlayerView extends JPanel implements ISongEventListener{
 
     private void onControlsSetup() {
         musicController = new MusicController();
-        musicController.setSongEventListener(this);
+        musicController.setSongUpdateListener(this);
         musicController.MockLoad();
 
         javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
