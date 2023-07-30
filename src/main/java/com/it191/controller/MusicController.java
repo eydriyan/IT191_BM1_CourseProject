@@ -15,7 +15,12 @@ public class MusicController extends MusicPlayer {
     // MediaPlayer mp;
     // String mp_song_path = "file:/C:/Users/Dell/Downloads/tests/song_2.mp3";
 
-    String song_1 = "songs/Happy Together.mp3"; // yung kay mam
+    // Format:
+    // songs
+    //  |_ <song_id>
+    //          |_ song.mp3
+    //          |_ image.(jpg, png, etc...)
+    String song_1 = "songs/Happy Together.mp3";
     String song_2 = "songs/song_2.mp3";
     String song_3 = "songs/song_3.mp3";
     String song_4 = "songs/song_4.mp3";
@@ -132,6 +137,10 @@ public class MusicController extends MusicPlayer {
 
         return true;
     }
+
+    // ==============================================================================================================
+
+    // ==============================================================================================================
 
     private void loadSongToPlayer() {
         // Get Currently Selected Song
