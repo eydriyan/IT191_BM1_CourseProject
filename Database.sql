@@ -10,7 +10,6 @@ SET SQL_SAFE_UPDATES = 0;
 DELETE FROM CollectionSong;
 DELETE FROM Colllection;
 DELETE FROM Song;
-DELETE FROM Genre;
 
 -- Drop Tables
 DROP TABLE CollectionSong;
@@ -42,12 +41,14 @@ CREATE TABLE Collection (
 CREATE TABLE CollectionSong (
 	collection_id INT,
     song_id INT,
-    FOREIGN KEY(collection_id) REFERENCES Collection(collection_id) ON DELETE CASCADE,
-    FOREIGN KEY(song_id) REFERENCES Song(song_id) ON DELETE CASCADE
+	PRIMARY KEY (collection_id, song_id),
+    FOREIGN KEY (collection_id) REFERENCES Collection(collection_id) ON DELETE CASCADE,
+    FOREIGN KEY (song_id) REFERENCES Song(song_id) ON DELETE CASCADE
 );
 
 SHOW TABLES;
 
+INSERT INTO Collection VALUES (null, "Favorites");
 INSERT INTO `song` (`song_id`, `artist`, `title`, `lyrics`, `duration`, `song_path`, `img_path`) VALUES
 (1, 'Taylor Swift', 'invisible string', 'Green was the color of the grass\r\nWhere I used to read at Centennial Park\r\nI used to think I would meet somebody there\r\nTeal was the color of your shirt\r\nWhen you were sixteen at the yogurt shop\r\nYou used to work at to make a little money\r\nTime, curious time\r\nGave me no compasses, gave me no signs\r\nWere there clues I didn\'t see?\r\nAnd isn\'t it just so pretty to think\r\nAll along there was some\r\nInvisible string\r\nTying you to me?\r\nOoh\r\nBad was the blood of the song in the cab\r\nOn your first trip to LA\r\nYou ate at my favorite spot for dinner\r\nBold was the waitress on our three year trip\r\nGetting lunch down by the lakes\r\nShe said I looked like an American singer\r\nTime, mystical time\r\nCuttin\' me open, then healin\' me fine\r\nWere there clues I didn\'t see?\r\nAnd isn\'t it just so pretty to think\r\nAll along there was some\r\nInvisible string\r\nTying you to me?\r\nOoh\r\nA string that pulled me\r\nOut of all the wrong arms right into that dive bar\r\nSomething wrapped all of my past mistakes in barbed wire\r\nChains around my demons, wool to brave the seasons\r\nOne single thread of gold tied me to you\r\nCold was the steel of my axe to grind\r\nFor the boys who broke my heart\r\nNow I send their babies presents\r\nGold was the color of the leaves\r\nWhen I showed you around Centennial Park\r\nHell was the journey but it brought me heaven\r\nTime, wondrous time\r\nGave me the blues and then purple pink skies\r\nAnd it\'s cool, baby, with me\r\nAnd isn\'t it just so pretty to think\r\nAll along there was some\r\nInvisible string\r\nTying you to me?\r\nOoh\r\nHee\r\nOoh', 4, 'songs/Taylor Swift – invisible string.mp3', 'target\\\\classes\\\\com\\\\it191\\\\view\\\\images\\\\album-cover - Copy.jpg'),
 (2, 'Mayonnaise', 'Synesthesia', 'Save your smile\r\nEverything fades through time\r\nI\'m lost for words\r\nEndlessly waiting for you\r\nStay with me\r\nYes, I know, this can\'t be\r\nAs morning comes\r\nI\'ll say goodbye to you when I\'m done\r\nThrough the sun\r\nBecause I\'m waiting for you\r\nWaiting for this dream to come true\r\nJust to be with you\r\nAnd if I die\r\nRemember these lines\r\nI\'m always here, guarding your life\r\nGuarding your life\r\nI am yours\r\nAnd I\'m completely trapped in your soul\r\nDazed and confused\r\nSwept away with your whole world\r\n\'Cause you\'re my star\r\nInvincible, haunting and far\r\nGrace under fire\r\nSomething is deep in my heart, in my heart\r\nBecause I\'m waiting for you\r\nWaiting for this dream to come true\r\nJust to be with you\r\nAnd if I die\r\nRemember these lines\r\nI\'m always here, guarding you\r\nSlowly falling into you\r\nI\'m obsessed with the fact that I\'m with you\r\nI can\'t breathe without you\r\nOoh, ooh, ooh, ooh, ooh-ooh\r\nI\'m waiting for you\r\nWaiting for this dream to come true\r\nJust to be with you\r\nAnd if I die\r\nRemember these lines\r\nI\'m always here, guarding your life\r\nOh, oh-oh, oh', 4, 'songs/Mayonnaise - Synesthesia.mp3', 'target\\\\classes\\\\com\\\\it191\\\\view\\\\images\\\\album-cover - Copy.jpg'),
@@ -61,3 +62,23 @@ INSERT INTO `song` (`song_id`, `artist`, `title`, `lyrics`, `duration`, `song_pa
 (10, 'YOASOBI', 'Racing Into The Night', '沈むように溶けてゆくように\r\n二人だけの空が広がる夜に\r\n「さよなら」だけだった\r\nその一言で全てが分かった\r\n日が沈み出した空と君の姿\r\nフェンス越しに重なっていた\r\n初めて会った日から\r\n僕の心の全てを奪った\r\nどこか儚い空気を纏う君は\r\n寂しい目をしてたんだ\r\nいつだってチックタックと\r\n鳴る世界で何度だってさ\r\n触れる心無い言葉うるさい声に\r\n涙が零れそうでも\r\nありきたりな喜びきっと二人なら見つけられる\r\n騒がしい日々に笑えない君に\r\n思い付く限り眩しい明日を\r\n明けない夜に落ちてゆく前に\r\n僕の手を掴んでほら\r\n忘れてしまいたくて閉じ込めた日々も\r\n抱きしめた温もりで溶かすから\r\n怖くないよいつか日が昇るまで\r\n二人でいよう\r\n君にしか見えない\r\n何かを見つめる君が嫌いだ\r\n見惚れているかのような恋するような\r\nそんな顔が嫌いだ\r\n信じていたいけど信じれないこと\r\nそんなのどうしたってきっと\r\nこれからだって いくつもあって\r\nそのたんび怒って 泣いていくの\r\nそれでもきっといつかはきっと 僕らはきっと\r\n分かり合えるさ 信じてるよ\r\nもう嫌だって疲れたんだって\r\nがむしゃらに差し伸べた 僕の手を振り払う君\r\nもう嫌だって 疲れたよなんて\r\n本当は僕も言いたいんだ\r\nAh ほらまたチックタックと\r\n鳴る世界で何度だってさ\r\n君の為に用意した言葉 どれも届かない\r\n「終わりにしたい」 だなんてさ\r\n釣られて言葉にした時\r\n君は初めて笑った\r\n騒がしい日々に笑えなくなっていた\r\n僕の目に映る君は綺麗だ\r\n明けない夜に零れた涙も\r\n君の笑顔に溶けていく\r\n変わらない日々に泣いていた僕を\r\n君は優しく終わりへと誘う\r\n沈むように溶けてゆくように\r\n染み付いた霧が晴れる\r\n忘れてしまいたくて閉じ込めた日々に\r\n差し伸べてくれた君の手を取る\r\n涼しい風が空を泳ぐように今 吹き抜けていく\r\n繋いだ手を離さないでよ\r\n二人いま 夜に駆け出していく', 5, 'songs/YOASOBI - Racing Into The Night.mp3', 'target\\\\classes\\\\com\\\\it191\\\\view\\\\images\\\\album-cover - Copy.jpg');
 
 SELECT * FROM Song;
+SELECT * FROM Collection;
+SELECT * FROM CollectionSong;
+
+
+SELECT s.*, CASE WHEN cs.song_id IS NOT NULL THEN 'true' ELSE 'false' END AS in_favorites
+FROM Song s
+LEFT JOIN CollectionSong cs
+ON s.song_id = cs.song_id
+LEFT JOIN Collection c
+ON cs.collection_id = c.collection_id AND c.title = 'Favorites';
+
+
+
+SELECT s.*, CASE WHEN cs.song_id IS NOT NULL THEN 'true' ELSE 'false' END AS in_favorites
+FROM Song s
+LEFT JOIN CollectionSong cs
+ON s.song_id = cs.song_id
+LEFT JOIN Collection c
+ON cs.collection_id = c.collection_id AND c.title = 'Favorites'
+WHERE cs.collection_id = 1;

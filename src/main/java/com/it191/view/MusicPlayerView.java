@@ -19,10 +19,10 @@ import javax.swing.event.ChangeListener;
 
 import com.it191.controller.MusicController;
 import com.it191.view.listeners.ISongRequestListener;
-import com.it191.view.listeners.ISongUpdateListener;
+import com.it191.view.listeners.IPlayerUpdateListener;
 import com.it191.view.objects.SongEvent;
 
-public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISongRequestListener {
+public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, ISongRequestListener {
 
     MusicController musicController;
 
@@ -71,7 +71,7 @@ public class MusicPlayerView extends JPanel implements ISongUpdateListener, ISon
     }
 
     @Override
-    public void onSongUpdated(SongEvent evt) {
+    public void onPlayerUpdateSong(SongEvent evt) {
         songTitle.setText(evt.getTitle());
         nameOfArtist.setText(evt.getArtist());
         lyricsPanel.setLyrics(evt.getLyrics());

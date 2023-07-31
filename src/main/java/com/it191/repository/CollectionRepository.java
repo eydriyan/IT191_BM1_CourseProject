@@ -10,7 +10,7 @@ import com.it191.model.CollectionModel;
 import com.it191.model.SongModel;
 
 public class CollectionRepository extends RepositoryBase {
-public void createNewCollection(CollectionModel collectionModel) {
+    public void createNewCollection(CollectionModel collectionModel) {
         try (Connection connection = getSqlConnection()) {
             String insertQuery = "INSERT INTO Collection (title) VALUES (?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
@@ -63,8 +63,9 @@ public void createNewCollection(CollectionModel collectionModel) {
         }
     }
 
-    public void addSongToCollection(SongModel songModel, CollectionModel collectionModel) {
-        try (Connection connection = getSqlConnection()) {
+
+    private void addSongToCollection(Connection connection, CollectionModel collectionModel, SongModel songModel) {
+        try {
             String insertQuery = "INSERT INTO CollectionSong (collection_id, song_id) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(insertQuery);
             statement.setInt(1, collectionModel.getCollectionId());
@@ -75,8 +76,28 @@ public void createNewCollection(CollectionModel collectionModel) {
         }
     }
 
-    public void removeSongFromCollection(SongModel songModel, CollectionModel collectionModel) {
+    public void addSongToCollection(SongModel songModel, String collectionTitle) {
         try (Connection connection = getSqlConnection()) {
+            String selectQuery = "SELECT collection_id FROM Collection WHERE Collection.title = ?";
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            statement.setString(1, collectionTitle);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("collection_id");
+
+                CollectionModel collectionModel = new CollectionModel();
+                collectionModel.setCollectionId(id);
+                addSongToCollection(connection, collectionModel, songModel);
+                break;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeSongFromCollection(Connection connection, CollectionModel collectionModel, SongModel songModel) {
+        try {
             String deleteQuery = "DELETE FROM CollectionSong WHERE collection_id = ? AND song_id = ?";
             PreparedStatement statement = connection.prepareStatement(deleteQuery);
             statement.setInt(1, collectionModel.getCollectionId());
@@ -87,4 +108,22 @@ public void createNewCollection(CollectionModel collectionModel) {
         }
     }
 
+    public void removeSongFromCollection(SongModel songModel, String collectionTitle) {
+        try (Connection connection = getSqlConnection()) {
+            String selectQuery = "SELECT collection_id FROM Collection WHERE Collection.title = ?";
+            PreparedStatement statement = connection.prepareStatement(selectQuery);
+            statement.setString(1, collectionTitle);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("collection_id");
+
+                CollectionModel collectionModel = new CollectionModel();
+                collectionModel.setCollectionId(id);
+                removeSongFromCollection(connection, collectionModel, songModel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

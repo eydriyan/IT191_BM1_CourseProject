@@ -7,8 +7,10 @@ import javax.swing.JPanel;
 import com.it191.controller.FavoritesController;
 import com.it191.model.SongModel;
 import com.it191.view.listeners.ISongRequestListener;
+import com.it191.view.listeners.ISongUpdateListener;
+import com.it191.view.objects.SongEvent;
 
-public class FavoritesPanel extends JPanel {
+public class FavoritesPanel extends JPanel implements ISongUpdateListener {
 
     private FavoritesController favoritesController;
     private ISongRequestListener songRequestListener;
@@ -28,16 +30,29 @@ public class FavoritesPanel extends JPanel {
     }
 
     public void onRefreshSongs() {
-        ArrayList<SongModel> songs = favoritesController.getFavoriteSongs();
-
         this.removeAll();
+
+        ArrayList<SongModel> songs = favoritesController.getFavoriteSongs();
         for (SongModel songModel : songs) {
             SongItem songItem = new SongItem(songModel);
             songItem.setSongRequestListener(songRequestListener);
+            songItem.setSongUpdateListener(this);
             this.add(songItem);
         }
 
+        this.repaint();
         this.revalidate();
+        
     }
 
+    @Override
+    public void onSongUpdate(SongEvent evt) {
+        if (evt.isInFavorites()) {
+            favoritesController.addSongToFavorites(evt);
+        } else {
+            favoritesController.removeSongFromFavorites(evt);
+        }
+
+        this.onRefreshSongs();
+    }
 }

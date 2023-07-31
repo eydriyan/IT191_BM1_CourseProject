@@ -11,6 +11,8 @@ public class SongEvent extends EventObject {
     private int duration;
     private String songPath;
     private String imgPath;
+
+    private boolean inFavorites;
  
     public SongEvent(Object source) {
         super(source);
@@ -36,6 +38,19 @@ public class SongEvent extends EventObject {
         this.duration = duration;
         this.songPath = songPath;
         this.imgPath = imgPath;
+    }
+
+    public SongEvent(Object source, int songId, String title, String artist, String lyrics, int duration,
+            String songPath, String imgPath, boolean inFavorites) {
+        super(source);
+        this.songId = songId;
+        this.title = title;
+        this.artist = artist;
+        this.lyrics = lyrics;
+        this.duration = duration;
+        this.songPath = songPath;
+        this.imgPath = imgPath;
+        this.inFavorites = inFavorites;
     }
 
     public int getSongId() {
@@ -65,6 +80,8 @@ public class SongEvent extends EventObject {
     public String getImgPath() {
         return imgPath;
     }
-
+    public boolean isInFavorites() {
+        return inFavorites;
+    }
     
 }

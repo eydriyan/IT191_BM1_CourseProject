@@ -7,8 +7,10 @@ import javax.swing.JPanel;
 import com.it191.controller.SongsController;
 import com.it191.model.SongModel;
 import com.it191.view.listeners.ISongRequestListener;
+import com.it191.view.listeners.ISongUpdateListener;
+import com.it191.view.objects.SongEvent;
 
-public class SongsPanel extends JPanel {
+public class SongsPanel extends JPanel implements ISongUpdateListener {
 
     private SongsController songsController;
     private ISongRequestListener songRequestListener;
@@ -34,9 +36,19 @@ public class SongsPanel extends JPanel {
         for (SongModel songModel : songs) {
             SongItem songItem = new SongItem(songModel);
             songItem.setSongRequestListener(songRequestListener);
+            songItem.setSongUpdateListener(this);
             this.add(songItem);
         }
 
         this.revalidate();
+    }
+
+    @Override
+    public void onSongUpdate(SongEvent evt) {
+        if (evt.isInFavorites()) {
+            songsController.addSongToFavorites(evt);
+        } else {
+            songsController.removeSongFromFavorites(evt);
+        }
     }
 }

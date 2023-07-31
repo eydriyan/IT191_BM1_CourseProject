@@ -14,8 +14,12 @@ public class SongRepository extends RepositoryBase {
     public ArrayList<SongModel> getAllSongs() {
         ArrayList<SongModel> songs = new ArrayList<>();
         try (Connection connection = getSqlConnection()) {
-            String selectQuery = "SELECT Song.song_id, Song.artist, Song.title, Song.lyrics, Song.duration, Song.song_path, Song.img_path " +
-                                 "FROM Song";
+            String selectQuery = "SELECT s.*, CASE WHEN cs.song_id IS NOT NULL THEN 'true' ELSE 'false' END AS in_favorites " +
+                "FROM Song s " +
+                "LEFT JOIN CollectionSong cs " +
+                "ON s.song_id = cs.song_id " +
+                "LEFT JOIN Collection c " +
+                "ON cs.collection_id = c.collection_id AND c.title = \'Favorites\'";
             PreparedStatement statement = connection.prepareStatement(selectQuery);
             ResultSet resultSet = statement.executeQuery();
 
@@ -29,34 +33,16 @@ public class SongRepository extends RepositoryBase {
         return songs;
     }
 
-    public ArrayList<SongModel> getAllSongsFromArtist(String artist) {
+    private ArrayList<SongModel> getAllSongsFromCollection(Connection connection, CollectionModel collectionModel) {
         ArrayList<SongModel> songs = new ArrayList<>();
-        try (Connection connection = getSqlConnection()) {
-            String selectQuery = "SELECT Song.song_id, Song.artist, Song.title, Song.lyrics, Song.duration, Song.song_path, Song.img_path " +
-                                 "FROM Song " +
-                                 "WHERE Song.artist = ?";
-
-            PreparedStatement statement = connection.prepareStatement(selectQuery);
-            statement.setString(1, artist);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                SongModel song = mapResultSetToSongModel(resultSet);
-                songs.add(song);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return songs;
-    }
-
-    public ArrayList<SongModel> getAllSongsFromCollection(CollectionModel collectionModel) {
-        ArrayList<SongModel> songs = new ArrayList<>();
-        try (Connection connection = getSqlConnection()) {
-            String selectQuery = "SELECT Song.song_id, Song.artist, Song.title, Song.lyrics, Song.duration, Song.song_path, Song.img_path " +
-                                 "FROM Song " +
-                                 "INNER JOIN CollectionSong ON Song.song_id = CollectionSong.song_id " +
-                                 "WHERE CollectionSong.collection_id = ?";
+        try {
+            String selectQuery = "SELECT s.*, CASE WHEN cs.song_id IS NOT NULL THEN 'true' ELSE 'false' END AS in_favorites " +
+                "FROM Song s " +
+                "LEFT JOIN CollectionSong cs " +
+                "ON s.song_id = cs.song_id " +
+                "LEFT JOIN Collection c " +
+                "ON cs.collection_id = c.collection_id AND c.title = \'Favorites\' " +
+                "WHERE cs.collection_id = ?";
             PreparedStatement statement = connection.prepareStatement(selectQuery);
             statement.setInt(1, collectionModel.getCollectionId());
             ResultSet resultSet = statement.executeQuery();
@@ -84,7 +70,7 @@ public class SongRepository extends RepositoryBase {
 
                 CollectionModel collectionModel = new CollectionModel();
                 collectionModel.setCollectionId(id);
-                songs = getAllSongsFromCollection(collectionModel);
+                songs = getAllSongsFromCollection(connection, collectionModel);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,6 +87,7 @@ public class SongRepository extends RepositoryBase {
         song.setDuration(resultSet.getInt("duration"));
         song.setSongPath(resultSet.getString("song_path"));
         song.setImgPath(resultSet.getString("img_path"));
+        song.setInFavorites(resultSet.getBoolean("in_favorites"));
         return song;
     }
 

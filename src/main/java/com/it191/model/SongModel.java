@@ -9,6 +9,8 @@ public class SongModel {
     private String songPath;
     private String imgPath;
 
+    private boolean inFavorites;
+
     public SongModel() {}
 
     // For DEBUG
@@ -58,6 +60,14 @@ public class SongModel {
     }
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
+    }
+    
+    public boolean isInFavorites() {
+        return inFavorites;
+    }
+
+    public void setInFavorites(boolean inFavorites) {
+        this.inFavorites = inFavorites;
     }
 
     public boolean equalsSong(SongModel obj) {

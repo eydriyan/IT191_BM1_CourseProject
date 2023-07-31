@@ -59,6 +59,9 @@ public class MusicPlayer {
 
     protected void loadSong(String songPath) {
         this.currentLoadedSongPath = songPath;
+
+        // Ensure that stopSong is called regardless
+        this.stopSong();
     }
 
     public boolean playSong() {

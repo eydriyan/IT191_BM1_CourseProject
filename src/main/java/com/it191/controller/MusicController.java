@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.it191.model.CollectionModel;
 import com.it191.model.SongModel;
-import com.it191.view.listeners.ISongUpdateListener;
+import com.it191.view.listeners.IPlayerUpdateListener;
 import com.it191.view.objects.SongEvent;
 
 //import javafx.scene.media.Media;
@@ -28,7 +28,7 @@ public class MusicController extends MusicPlayer {
     private ArrayList<SongModel> loadedSongsToPlay;
     private SongModel currentlySelectedSong;
 
-    private ISongUpdateListener songUpdateListener;
+    private IPlayerUpdateListener songUpdateListener;
 
     public MusicController() {
         super();
@@ -36,7 +36,7 @@ public class MusicController extends MusicPlayer {
         loadedSongsToPlay = new ArrayList<>();
     }
 
-    public void setSongUpdateListener(ISongUpdateListener songUpdateListener) {
+    public void setSongUpdateListener(IPlayerUpdateListener songUpdateListener) {
         this.songUpdateListener = songUpdateListener;
     }
 
@@ -115,6 +115,6 @@ public class MusicController extends MusicPlayer {
             currentlySelectedSong.getImgPath(),
             currentlySelectedSong.getLyrics()
         );
-        this.songUpdateListener.onSongUpdated(evt);
+        this.songUpdateListener.onPlayerUpdateSong(evt);
     }
 }

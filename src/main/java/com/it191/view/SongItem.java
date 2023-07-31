@@ -10,11 +10,12 @@ import javax.swing.JPanel;
 
 import com.it191.model.SongModel;
 import com.it191.view.listeners.ISongRequestListener;
+import com.it191.view.listeners.ISongUpdateListener;
 import com.it191.view.objects.SongEvent;
 
 public class SongItem extends JPanel {
 
-    private JCheckBox jCheckBox1;
+    private JCheckBox favoriteBtn;
     private JLabel durationHolder;
     private JLabel titleHolder;
     private JLabel artistHolder;
@@ -25,6 +26,7 @@ public class SongItem extends JPanel {
     private GridBagConstraints gridBagConstraints;
 
     private ISongRequestListener songRequestListener;
+    private ISongUpdateListener songUpdateListener;
 
     public SongItem(SongModel songModel) {
         this.onUISetup();
@@ -51,15 +53,36 @@ public class SongItem extends JPanel {
                 songRequestListener.onSongRequest(songEvent);
             }
         });
+    
+        favoriteBtn.setSelected(songModel.isInFavorites());
+
+        favoriteBtn.addActionListener(e -> {
+            SongEvent songEvent = new SongEvent(
+                this,
+                songModel.getSongId(),
+                songModel.getTitle(),
+                songModel.getArtist(),
+                songModel.getLyrics(),
+                songModel.getDuration(),
+                songModel.getSongPath(),
+                songModel.getImgPath(),
+                favoriteBtn.isSelected()
+            );
+            songUpdateListener.onSongUpdate(songEvent);
+        });
     }
 
     public void setSongRequestListener(ISongRequestListener songRequestListener) {
         this.songRequestListener = songRequestListener;
     }
 
+    public void setSongUpdateListener(ISongUpdateListener songUpdateListener) {
+        this.songUpdateListener = songUpdateListener;
+    }
+
     private void onUISetup() {
         imagePanel = new JPanel();
-        jCheckBox1 = new JCheckBox();
+        favoriteBtn = new JCheckBox();
         imageHolder = new JLabel();
         titlePanel = new JPanel();
         titleHolder = new JLabel();
@@ -86,8 +109,8 @@ public class SongItem extends JPanel {
         gridBagConstraints.ipady = 65;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 14);
-        imagePanel.add(jCheckBox1, gridBagConstraints);
-        jCheckBox1.setOpaque(false);
+        imagePanel.add(favoriteBtn, gridBagConstraints);
+        favoriteBtn.setOpaque(false);
 
         imageHolder.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover.jpg"));
         gridBagConstraints = new java.awt.GridBagConstraints();
