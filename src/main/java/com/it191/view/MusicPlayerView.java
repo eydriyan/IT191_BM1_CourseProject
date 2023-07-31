@@ -53,7 +53,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
     private SongsPanel songsPanel;
     private PlaylistPanel playlistPanel;
 
-    javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
+    javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(90, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 double percent = musicController.getCurrentPositionPercent();
@@ -79,9 +79,9 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
     @Override
     public void onSongRequest(SongEvent evt) {
+        seekSliderTimerUpdate.stop();
         musicController.stopSong();
         musicController.songToPlay(evt);
-        seekSliderTimerUpdate.stop();
         seekSlider.setValue(0);
     }
 
@@ -176,23 +176,23 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         pauseBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.pauseSong();
                 seekSliderTimerUpdate.stop();
+                musicController.pauseSong();
             }
         });
         stopBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.stopSong();
                 seekSliderTimerUpdate.stop();
+                musicController.stopSong();
                 seekSlider.setValue(0);
             }
         });
         previousBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.stopSong();
                 seekSliderTimerUpdate.stop();
+                musicController.stopSong();
                 seekSlider.setValue(0);
 
                 if(!musicController.prevSong()) {
@@ -204,8 +204,8 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         nextBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.stopSong();
                 seekSliderTimerUpdate.stop();
+                musicController.stopSong();
                 seekSlider.setValue(0);
 
                 if(!musicController.nextSong()) {
@@ -218,8 +218,8 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         seekSlider.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                musicController.pauseSong();
                 seekSliderTimerUpdate.stop();
+                musicController.pauseSong();
                 super.mousePressed(e);
             }
         });
@@ -233,7 +233,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                     if (timer != null && timer.isRunning()) {
                         timer.restart();
                     } else {
-                        timer = new javax.swing.Timer(200, new ActionListener() {
+                        timer = new javax.swing.Timer(50, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 if (!seekSlider.getValueIsAdjusting()) {
