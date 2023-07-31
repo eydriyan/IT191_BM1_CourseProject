@@ -15,12 +15,6 @@ public class MusicController extends MusicPlayer {
     // MediaPlayer mp;
     // String mp_song_path = "file:/C:/Users/Dell/Downloads/tests/song_2.mp3";
 
-    // Format:
-    // songs
-    //  |_ <song_id>
-    //          |_ song.mp3
-    //          |_ image.(jpg, png, etc...)
-
     // playedSongsHistory currentlySelectedSong loadedSongsToPlay
     // [ s1 s2 s3 s4 ] s5 [ s7 s8 s9 s10 ]
 
@@ -64,10 +58,10 @@ public class MusicController extends MusicPlayer {
         }
 
         // If currentlySelectedSong is None, load from loadedSongsToPlay
-        if(this.currentlySelectedSong == null) {
+        if (this.currentlySelectedSong == null) {
             SongModel songToPlay = this.loadedSongsToPlay.remove(0);
             this.currentlySelectedSong = songToPlay;
-            
+
             this.loadSongToPlayer();
         }
     }
@@ -75,21 +69,25 @@ public class MusicController extends MusicPlayer {
     public boolean prevSong() {
         if (this.playedSongsHistory.isEmpty())
             return false;
-        
-        this.loadedSongsToPlay.add(0, this.currentlySelectedSong);
+
+        if (this.currentlySelectedSong != null)
+            this.loadedSongsToPlay.add(0, this.currentlySelectedSong);
+
         SongModel prevSongToPlay = this.playedSongsHistory.remove(0);
         this.currentlySelectedSong = prevSongToPlay;
 
         this.loadSongToPlayer();
-        
+
         return true;
     }
 
     public boolean nextSong() {
         if (this.loadedSongsToPlay.isEmpty())
             return false;
-        
-        this.playedSongsHistory.add(0, this.currentlySelectedSong);
+
+        if (this.currentlySelectedSong != null)
+            this.playedSongsHistory.add(0, this.currentlySelectedSong);
+
         SongModel nextSongToPlay = this.loadedSongsToPlay.remove(0);
         this.currentlySelectedSong = nextSongToPlay;
 
@@ -109,12 +107,11 @@ public class MusicController extends MusicPlayer {
 
         // Update View(s)
         SongEvent evt = new SongEvent(
-            new Object(),
-            currentlySelectedSong.getTitle(),
-            currentlySelectedSong.getArtist(),
-            currentlySelectedSong.getImgPath(),
-            currentlySelectedSong.getLyrics()
-        );
+                new Object(),
+                currentlySelectedSong.getTitle(),
+                currentlySelectedSong.getArtist(),
+                currentlySelectedSong.getImgPath(),
+                currentlySelectedSong.getLyrics());
         this.songUpdateListener.onPlayerUpdateSong(evt);
     }
 }
