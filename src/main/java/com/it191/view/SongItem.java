@@ -38,6 +38,8 @@ public class SongItem extends JPanel {
         int remainingSeconds = songModel.getDuration() % 60;
         durationHolder.setText(String.format("%02d:%02d", minutes, remainingSeconds));
 
+        imageHolder.setIcon(new javax.swing.ImageIcon(songModel.getImgPath() + "_3.jpg"));
+
         imageHolder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

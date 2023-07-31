@@ -28,7 +28,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
     private JPanel favoritesBtn;
     private JLabel appSongImage;
-    private JLabel songImage;
+    private JLabel playerSongImage;
     private JLabel lyricsBtn;
     private JLabel nameOfArtist;
     private JLabel nextBtn;
@@ -76,6 +76,9 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         songTitle.setText(evt.getTitle());
         nameOfArtist.setText(evt.getArtist());
         lyricsPanel.setLyrics(evt.getLyrics());
+
+        appSongImage.setIcon(new javax.swing.ImageIcon(evt.getImgPath() + "_1.jpg"));
+        playerSongImage.setIcon(new javax.swing.ImageIcon(evt.getImgPath() + "_2.jpg"));
     }
 
     @Override
@@ -264,7 +267,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         songTitle = new JLabel();
         nameOfArtist = new JLabel();
         appSongImage = new JLabel();
-        songImage = new JLabel();
+        playerSongImage = new JLabel();
         seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 100000, 0);
         previousBtn = new JLabel();
         pauseBtn = new JLabel();
@@ -380,7 +383,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 28);
         jPanel16.add(nameOfArtist, gridBagConstraints);
 
-        songImage.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy.jpg"));
+        playerSongImage.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy.jpg"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -388,7 +391,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         gridBagConstraints.ipady = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 30, 10, 0);
-        jPanel16.add(songImage, gridBagConstraints);
+        jPanel16.add(playerSongImage, gridBagConstraints);
 
         jPanel2.add(jPanel16, java.awt.BorderLayout.WEST);
 
