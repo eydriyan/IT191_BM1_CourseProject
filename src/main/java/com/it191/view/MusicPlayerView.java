@@ -150,12 +150,22 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         playBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(!musicController.playSong()) {
+                if(!musicController.isSongLoaded()) {
                     JOptionPane.showMessageDialog(
                         null,
                         "No Song to Play",
                         "Play Error",
                         JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                if(!musicController.playSong()) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Already Playing",
+                        "Play Alert",
+                        JOptionPane.WARNING_MESSAGE
                     );
                     return;
                 }
