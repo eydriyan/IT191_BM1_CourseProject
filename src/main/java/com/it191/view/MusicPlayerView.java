@@ -27,6 +27,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
     MusicController musicController;
 
     private JPanel favoritesBtn;
+    private JLabel appSongImage;
     private JLabel songImage;
     private JLabel lyricsBtn;
     private JLabel nameOfArtist;
@@ -53,7 +54,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
     private SongsPanel songsPanel;
     private PlaylistPanel playlistPanel;
 
-    javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(100, new ActionListener() {
+    javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(90, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 double percent = musicController.getCurrentPositionPercent();
@@ -79,13 +80,12 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
     @Override
     public void onSongRequest(SongEvent evt) {
+        seekSliderTimerUpdate.stop();
         musicController.stopSong();
         musicController.songToPlay(evt);
-        seekSliderTimerUpdate.stop();
         seekSlider.setValue(0);
     }
 
-    
     private void changeViewControlSetup() {
         panelHolder.add(lyricsPanel, "Lyrics");
         panelHolder.add(favoritesPanel, "Favorites");
@@ -150,12 +150,22 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         playBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(!musicController.playSong()) {
+                if(!musicController.isSongLoaded()) {
                     JOptionPane.showMessageDialog(
                         null,
                         "No Song to Play",
                         "Play Error",
                         JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                if(!musicController.playSong()) {
+                    JOptionPane.showMessageDialog(
+                        null,
+                        "Already Playing",
+                        "Play Alert",
+                        JOptionPane.WARNING_MESSAGE
                     );
                     return;
                 }
@@ -166,23 +176,23 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         pauseBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.pauseSong();
                 seekSliderTimerUpdate.stop();
+                musicController.pauseSong();
             }
         });
         stopBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.stopSong();
                 seekSliderTimerUpdate.stop();
+                musicController.stopSong();
                 seekSlider.setValue(0);
             }
         });
         previousBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.stopSong();
                 seekSliderTimerUpdate.stop();
+                musicController.stopSong();
                 seekSlider.setValue(0);
 
                 if(!musicController.prevSong()) {
@@ -194,8 +204,8 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         nextBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                musicController.stopSong();
                 seekSliderTimerUpdate.stop();
+                musicController.stopSong();
                 seekSlider.setValue(0);
 
                 if(!musicController.nextSong()) {
@@ -208,8 +218,8 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         seekSlider.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                musicController.pauseSong();
                 seekSliderTimerUpdate.stop();
+                musicController.pauseSong();
                 super.mousePressed(e);
             }
         });
@@ -223,7 +233,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                     if (timer != null && timer.isRunning()) {
                         timer.restart();
                     } else {
-                        timer = new javax.swing.Timer(200, new ActionListener() {
+                        timer = new javax.swing.Timer(50, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 if (!seekSlider.getValueIsAdjusting()) {
@@ -253,6 +263,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         lyricsBtn = new JLabel();
         songTitle = new JLabel();
         nameOfArtist = new JLabel();
+        appSongImage = new JLabel();
         songImage = new JLabel();
         seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 100000, 0);
         previousBtn = new JLabel();
@@ -289,7 +300,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         JPanel jPanel12 = new JPanel();
         JPanel jPanel11 = new JPanel();
         JPanel jPanel19 = new JPanel();
-        JLabel jLabel25 = new JLabel();
         JPanel jPanel21 = new JPanel();
         JLabel jLabel4 = new JLabel();
         JLabel jLabel14 = new JLabel();
@@ -299,10 +309,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         JPanel jPanel24 = new JPanel();
         JLabel jLabel12 = new JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
-        JPanel jPanel27 = new JPanel();
-        JPanel jPanel26 = new JPanel();
-        JPanel jPanel28 = new JPanel();
-        JPanel jPanel29 = new JPanel();
 
         setMinimumSize(new java.awt.Dimension(1400, 900));
         setPreferredSize(new java.awt.Dimension(1400, 900));
@@ -355,7 +361,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         songTitle.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24));
         songTitle.setForeground(new java.awt.Color(255, 255, 255));
-        songTitle.setText("Song Title");
+        songTitle.setText("Pick a song");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -365,7 +371,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         nameOfArtist.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18));
         nameOfArtist.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfArtist.setText("Name of Artist");
+        nameOfArtist.setText("??");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -476,8 +482,8 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         jPanel19.setBackground(new java.awt.Color(51, 51, 51));
         jPanel19.setPreferredSize(new java.awt.Dimension(250, 205));
 
-        jLabel25.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy - Copy.jpg")); // NOI18N
-        jPanel19.add(jLabel25);
+        appSongImage.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy - Copy.jpg")); // NOI18N
+        jPanel19.add(appSongImage);
 
         jPanel11.add(jPanel19, java.awt.BorderLayout.NORTH);
 
@@ -613,36 +619,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         panelHolder.setBackground(new java.awt.Color(51, 51, 51));
         panelHolder.setPreferredSize(new java.awt.Dimension(200, 1000));
         panelHolder.setLayout(new CardLayout());
-
-        //jPanel27.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel27.setPreferredSize(new java.awt.Dimension(10, 1000));
-        //jPanel27.setLayout(null);
-        //panelHolder.add(jPanel27, java.awt.BorderLayout.LINE_START);
-//
-        //jPanel26.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel26.setPreferredSize(new java.awt.Dimension(1180, 10));
-        //panelHolder.add(jPanel26, java.awt.BorderLayout.PAGE_START);
-//
-        //jPanel28.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel28.setPreferredSize(new java.awt.Dimension(10, 990));
-        //panelHolder.add(jPanel28, java.awt.BorderLayout.LINE_END);
-//
-        //jPanel29.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel29.setPreferredSize(new java.awt.Dimension(0, 10));
-        //panelHolder.add(jPanel29, java.awt.BorderLayout.SOUTH);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //SongsPanel songlist = new SongsPanel();
-
-        //FavoritesPanel favoritesPanel = new FavoritesPanel();
-
-        //PlaylistPanel playlistPanel = new PlaylistPanel();
-
-        //LyricsPanel lyricsPanel = new LyricsPanel();
-
-        //panelHolder.add(playlistPanel, java.awt.BorderLayout.CENTER);
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         jScrollPane1.setViewportView(panelHolder);
 
