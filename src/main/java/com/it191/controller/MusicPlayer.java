@@ -149,7 +149,6 @@ public class MusicPlayer {
             // Only set lengthBeforePause property since
             // it will be used when played
             this.lengthBeforePause = this.currentTotalLength - (int) (this.currentTotalLength * positionPercent);
-            System.out.println(lengthBeforePause);
         } catch (Exception e) {
             e.printStackTrace();
         }
