@@ -64,6 +64,10 @@ public class MusicPlayer {
         this.stopSong();
     }
 
+    public boolean isSongLoaded() {
+        return (this.currentLoadedSongPath == null || this.currentLoadedSongPath.equals("")) ? false : true;
+    }
+
     public boolean playSong() {
         try {
             // Exit if currently playing already or if there are no loaded song path
@@ -145,6 +149,7 @@ public class MusicPlayer {
             // Only set lengthBeforePause property since
             // it will be used when played
             this.lengthBeforePause = this.currentTotalLength - (int) (this.currentTotalLength * positionPercent);
+            System.out.println(lengthBeforePause);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,6 +164,12 @@ public class MusicPlayer {
             if (!this.isVolumeSynced) {
                 setVolume(this.currentVolumePercent);
                 this.isVolumeSynced = true;
+            }
+
+            // Have a check for finished playing
+            int threshold = 10_000; // the minimum number of bytes remaining to consider finished playing
+            if (inputStream.available() <= threshold) {
+                this.isFirstRun = true;
             }
 
             // Calculate Percent of position
