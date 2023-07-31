@@ -309,10 +309,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         JPanel jPanel24 = new JPanel();
         JLabel jLabel12 = new JLabel();
         JScrollPane jScrollPane1 = new JScrollPane();
-        JPanel jPanel27 = new JPanel();
-        JPanel jPanel26 = new JPanel();
-        JPanel jPanel28 = new JPanel();
-        JPanel jPanel29 = new JPanel();
 
         setMinimumSize(new java.awt.Dimension(1400, 900));
         setPreferredSize(new java.awt.Dimension(1400, 900));
@@ -365,7 +361,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         songTitle.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24));
         songTitle.setForeground(new java.awt.Color(255, 255, 255));
-        songTitle.setText("Song Title");
+        songTitle.setText("Pick a song");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -375,7 +371,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         nameOfArtist.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18));
         nameOfArtist.setForeground(new java.awt.Color(255, 255, 255));
-        nameOfArtist.setText("Name of Artist");
+        nameOfArtist.setText("??");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -623,36 +619,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         panelHolder.setBackground(new java.awt.Color(51, 51, 51));
         panelHolder.setPreferredSize(new java.awt.Dimension(200, 1000));
         panelHolder.setLayout(new CardLayout());
-
-        //jPanel27.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel27.setPreferredSize(new java.awt.Dimension(10, 1000));
-        //jPanel27.setLayout(null);
-        //panelHolder.add(jPanel27, java.awt.BorderLayout.LINE_START);
-//
-        //jPanel26.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel26.setPreferredSize(new java.awt.Dimension(1180, 10));
-        //panelHolder.add(jPanel26, java.awt.BorderLayout.PAGE_START);
-//
-        //jPanel28.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel28.setPreferredSize(new java.awt.Dimension(10, 990));
-        //panelHolder.add(jPanel28, java.awt.BorderLayout.LINE_END);
-//
-        //jPanel29.setBackground(new java.awt.Color(51, 51, 51));
-        //jPanel29.setPreferredSize(new java.awt.Dimension(0, 10));
-        //panelHolder.add(jPanel29, java.awt.BorderLayout.SOUTH);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        //SongsPanel songlist = new SongsPanel();
-
-        //FavoritesPanel favoritesPanel = new FavoritesPanel();
-
-        //PlaylistPanel playlistPanel = new PlaylistPanel();
-
-        //LyricsPanel lyricsPanel = new LyricsPanel();
-
-        //panelHolder.add(playlistPanel, java.awt.BorderLayout.CENTER);
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         jScrollPane1.setViewportView(panelHolder);
 
