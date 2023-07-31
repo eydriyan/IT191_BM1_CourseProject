@@ -34,6 +34,10 @@ public class SongItem extends JPanel {
         titleHolder.setText(songModel.getTitle());
         artistHolder.setText(songModel.getArtist());
 
+        int minutes = songModel.getDuration() / 60;
+        int remainingSeconds = songModel.getDuration() % 60;
+        durationHolder.setText(String.format("%02d:%02d", minutes, remainingSeconds));
+
         imageHolder.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
