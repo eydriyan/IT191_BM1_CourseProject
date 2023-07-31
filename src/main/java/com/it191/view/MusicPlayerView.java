@@ -27,6 +27,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
     MusicController musicController;
 
     private JPanel favoritesBtn;
+    private JLabel appSongImage;
     private JLabel songImage;
     private JLabel lyricsBtn;
     private JLabel nameOfArtist;
@@ -85,7 +86,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         seekSlider.setValue(0);
     }
 
-    
     private void changeViewControlSetup() {
         panelHolder.add(lyricsPanel, "Lyrics");
         panelHolder.add(favoritesPanel, "Favorites");
@@ -263,6 +263,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         lyricsBtn = new JLabel();
         songTitle = new JLabel();
         nameOfArtist = new JLabel();
+        appSongImage = new JLabel();
         songImage = new JLabel();
         seekSlider = new JSlider(JSlider.HORIZONTAL, 0, 100000, 0);
         previousBtn = new JLabel();
@@ -299,7 +300,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         JPanel jPanel12 = new JPanel();
         JPanel jPanel11 = new JPanel();
         JPanel jPanel19 = new JPanel();
-        JLabel jLabel25 = new JLabel();
         JPanel jPanel21 = new JPanel();
         JLabel jLabel4 = new JLabel();
         JLabel jLabel14 = new JLabel();
@@ -482,8 +482,8 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         jPanel19.setBackground(new java.awt.Color(51, 51, 51));
         jPanel19.setPreferredSize(new java.awt.Dimension(250, 205));
 
-        jLabel25.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy - Copy.jpg")); // NOI18N
-        jPanel19.add(jLabel25);
+        appSongImage.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy - Copy.jpg")); // NOI18N
+        jPanel19.add(appSongImage);
 
         jPanel11.add(jPanel19, java.awt.BorderLayout.NORTH);
 
