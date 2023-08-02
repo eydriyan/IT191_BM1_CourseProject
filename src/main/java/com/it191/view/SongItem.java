@@ -40,7 +40,7 @@ public class SongItem extends JPanel {
         int remainingSeconds = songModel.getDuration() % 60;
         durationHolder.setText(String.format("%02d:%02d", minutes, remainingSeconds));
 
-        ImageIcon songImageIcon = new ImageIcon(new ImageIcon(songModel.getImgPath() + "_1.jpg").getImage().getScaledInstance(80, 75, Image.SCALE_SMOOTH));
+        ImageIcon songImageIcon = new ImageIcon(new ImageIcon(songModel.getImgPath()).getImage().getScaledInstance(80, 75, Image.SCALE_SMOOTH));
         imageHolder.setIcon(songImageIcon);
 
         imageHolder.addMouseListener(new MouseAdapter() {
