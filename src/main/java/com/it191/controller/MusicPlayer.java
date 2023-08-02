@@ -46,6 +46,8 @@ public class MusicPlayer {
                     try {
                         this.player.play();
                         this.isPlaying.set(false);
+                        this.player.close();
+                        this.inputStream.close();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -59,7 +61,8 @@ public class MusicPlayer {
 
     protected void loadSong(String songPath) {
         this.currentLoadedSongPath = songPath;
-
+        this.isFirstRun = true;
+        
         // Ensure that stopSong is called regardless
         this.stopSong();
     }
