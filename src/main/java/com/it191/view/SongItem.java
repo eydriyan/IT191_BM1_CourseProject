@@ -1,9 +1,11 @@
 package com.it191.view;
 
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,7 +40,8 @@ public class SongItem extends JPanel {
         int remainingSeconds = songModel.getDuration() % 60;
         durationHolder.setText(String.format("%02d:%02d", minutes, remainingSeconds));
 
-        imageHolder.setIcon(new javax.swing.ImageIcon(songModel.getImgPath() + "_3.jpg"));
+        ImageIcon songImageIcon = new ImageIcon(new ImageIcon(songModel.getImgPath() + "_1.jpg").getImage().getScaledInstance(80, 75, Image.SCALE_SMOOTH));
+        imageHolder.setIcon(songImageIcon);
 
         imageHolder.addMouseListener(new MouseAdapter() {
             @Override
