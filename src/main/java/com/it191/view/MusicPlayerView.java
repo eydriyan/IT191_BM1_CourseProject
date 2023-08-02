@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -512,6 +513,42 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(54, 0, 0, 0);
         jPanel21.add(songsBtn, gridBagConstraints);
+
+        ///////////////////////
+        JPanel playlistsBtn = new JPanel();
+        JLabel playlistLabel = new JLabel();
+        JLabel jLabel14 = new JLabel();
+
+        playlistsBtn.setBackground(new java.awt.Color(51, 51, 51));
+        playlistsBtn.setPreferredSize(new java.awt.Dimension(250, 97));
+        playlistsBtn.setLayout(new java.awt.GridBagLayout());
+
+        playlistLabel.setFont(new java.awt.Font("Segoe UI", 1, 30));
+        playlistLabel.setForeground(new java.awt.Color(255, 255, 255));
+        playlistLabel.setText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(27, 18, 29, 48);
+        playlistsBtn.add(playlistLabel, gridBagConstraints);
+
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(23, 24, 29, 0);
+        playlistsBtn.add(jLabel14, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 0, 171, 0);
+        jPanel21.add(playlistsBtn, gridBagConstraints);
+
+        ///////////////////////
 
         favoritesBtn.setBackground(new java.awt.Color(102, 102, 102));
         favoritesBtn.setPreferredSize(new java.awt.Dimension(250, 97));
