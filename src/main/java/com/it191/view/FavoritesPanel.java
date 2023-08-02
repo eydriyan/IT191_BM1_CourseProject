@@ -34,6 +34,10 @@ public class FavoritesPanel extends JPanel implements ISongUpdateListener {
         this.viewUpdateListener = viewUpdateListener;
     }
 
+    public ArrayList<SongModel> getCurrentSongs() {
+        return this.loadedSongs;
+    }
+
     private void onUISetup() {
         this.setBackground(new java.awt.Color(51, 51, 51));
         this.setLayout(new java.awt.GridLayout(10, 1));

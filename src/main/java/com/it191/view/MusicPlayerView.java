@@ -52,6 +52,8 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
     private FavoritesPanel favoritesPanel;
     private SongsPanel songsPanel;
 
+    private String currentLoadedView;
+
     javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(90, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,6 +100,11 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         panelHolder.add(favoritesPanel, "Favorites");
         panelHolder.add(songsPanel, "Songs");
 
+        CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+        cardLayout.show(panelHolder, "Songs");
+        songsPanel.onForceDatabaseReload();
+        currentLoadedView = "Songs";
+
         lyricsBtn.addMouseListener(
             new MouseAdapter() {
                 @Override
@@ -115,6 +122,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                     CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
                     cardLayout.show(panelHolder, "Songs");
                     songsPanel.onForceDatabaseReload();
+                    currentLoadedView = "Songs";
                 }
             }
         );
@@ -126,12 +134,14 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                     CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
                     cardLayout.show(panelHolder, "Favorites");
                     favoritesPanel.onForceDatabaseReload();
+                    currentLoadedView = "Favorites";
                 }
             }
         );
     }
 
     private void onControlsSetup() {
+        currentLoadedView = "";
         lyricsPanel = new LyricsPanel();
         favoritesPanel = new FavoritesPanel();
         songsPanel = new SongsPanel();
@@ -144,6 +154,26 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         songsPanel.setSongRequestListener(this);
         favoritesPanel.setSongRequestListener(this);
+
+        appSongImage.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (currentLoadedView.equals("Songs")) {
+                    musicController.addSongFromCollection(
+                        songsPanel.getCurrentSongs()
+                    );
+
+                    JOptionPane.showMessageDialog(null, "Songs Loaded to Queue", "Songs", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if (currentLoadedView.equals("Favorites")) {
+                    musicController.addSongFromCollection(
+                        favoritesPanel.getCurrentSongs()
+                    );
+
+                    JOptionPane.showMessageDialog(null, "Songs Loaded to Queue", "Favorites", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
 
         searchBar.addActionListener(e -> {
             songsPanel.setSongFilterByName(searchBar.getText());

@@ -2,7 +2,6 @@ package com.it191.controller;
 
 import java.util.ArrayList;
 
-import com.it191.model.CollectionModel;
 import com.it191.model.SongModel;
 import com.it191.view.listeners.IPlayerUpdateListener;
 import com.it191.view.objects.SongEvent;
@@ -52,8 +51,8 @@ public class MusicController extends MusicPlayer {
         this.nextSong();
     }
 
-    public void addSongFromCollection(CollectionModel collectionModel) {
-        for (SongModel songModel : collectionModel.getSongs()) {
+    public void addSongFromCollection(ArrayList<SongModel> songs) {
+        for (SongModel songModel : songs) {
             this.loadedSongsToPlay.add(songModel);
         }
 

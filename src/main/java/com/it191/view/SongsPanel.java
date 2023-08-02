@@ -24,7 +24,6 @@ public class SongsPanel extends JPanel implements ISongUpdateListener {
         this.onUISetup();
         this.songsController = new SongsController();
         this.songFilterQuery = "";
-        this.loadedSongs = songsController.getSongs();
     }
 
     public void setSongRequestListener(ISongRequestListener songRequestListener) {
@@ -33,6 +32,10 @@ public class SongsPanel extends JPanel implements ISongUpdateListener {
 
     public void setViewUpdateListener(IViewUpdateListener viewUpdateListener) {
         this.viewUpdateListener = viewUpdateListener;
+    }
+
+    public ArrayList<SongModel> getCurrentSongs() {
+        return this.loadedSongs;
     }
 
     private void onUISetup() {
