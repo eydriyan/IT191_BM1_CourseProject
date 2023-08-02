@@ -24,6 +24,7 @@ public class FavoritesPanel extends JPanel implements ISongUpdateListener {
         this.onUISetup();
         this.favoritesController = new FavoritesController();
         this.songFilterQuery = "";
+        this.loadedSongs = new ArrayList<>();
     }
 
     public void setSongRequestListener(ISongRequestListener songRequestListener) {

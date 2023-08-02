@@ -159,6 +159,10 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (currentLoadedView.equals("Songs")) {
+                    if (songsPanel.getCurrentSongs().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "No Songs to add", "Songs", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
                     musicController.addSongFromCollection(
                         songsPanel.getCurrentSongs()
                     );
@@ -166,6 +170,11 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                     JOptionPane.showMessageDialog(null, "Songs Loaded to Queue", "Songs", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else if (currentLoadedView.equals("Favorites")) {
+                    if (favoritesPanel.getCurrentSongs().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "No Songs to add", "Favorites", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+
                     musicController.addSongFromCollection(
                         favoritesPanel.getCurrentSongs()
                     );
