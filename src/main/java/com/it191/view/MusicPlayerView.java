@@ -2,15 +2,12 @@ package com.it191.view;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,13 +17,10 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import com.it191.controller.MusicController;
 import com.it191.view.listeners.ISongRequestListener;
 import com.it191.view.listeners.IPlayerUpdateListener;
 import com.it191.view.objects.SongEvent;
-
-import javafx.scene.layout.Border;
 
 public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, ISongRequestListener {
 
@@ -158,6 +152,11 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         songsPanel.setSongRequestListener(this);
         favoritesPanel.setSongRequestListener(this);
+
+        searchBar.addActionListener(e -> {
+            songsPanel.setSongFilterByName(searchBar.getText());
+            favoritesPanel.setSongFilterByName(searchBar.getText());
+        });
 
         playBtn.addMouseListener(new MouseAdapter() {
             @Override
