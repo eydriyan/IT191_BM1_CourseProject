@@ -77,10 +77,10 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         nameOfArtist.setText(evt.getArtist());
         lyricsPanel.setLyrics(evt.getLyrics());
 
-        ImageIcon appImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath() + "_3.jpg").getImage().getScaledInstance(210, 190, Image.SCALE_SMOOTH));
+        ImageIcon appImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath()).getImage().getScaledInstance(210, 190, Image.SCALE_SMOOTH));
         appSongImage.setIcon(appImageIcon);
 
-        ImageIcon playerSongImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath() + "_1.jpg").getImage().getScaledInstance(110, 105, Image.SCALE_SMOOTH));
+        ImageIcon playerSongImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath()).getImage().getScaledInstance(110, 105, Image.SCALE_SMOOTH));
         playerSongImage.setIcon(playerSongImageIcon);
     }
 
