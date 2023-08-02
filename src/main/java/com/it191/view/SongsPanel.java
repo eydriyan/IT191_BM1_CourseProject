@@ -2,7 +2,6 @@ package com.it191.view;
 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.it191.controller.SongsController;
