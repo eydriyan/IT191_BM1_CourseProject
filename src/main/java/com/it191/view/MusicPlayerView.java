@@ -3,11 +3,12 @@ package com.it191.view;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,7 +17,6 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import com.it191.controller.MusicController;
 import com.it191.view.listeners.ISongRequestListener;
 import com.it191.view.listeners.IPlayerUpdateListener;
@@ -77,8 +77,11 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         nameOfArtist.setText(evt.getArtist());
         lyricsPanel.setLyrics(evt.getLyrics());
 
-        appSongImage.setIcon(new javax.swing.ImageIcon(evt.getImgPath() + "_1.jpg"));
-        playerSongImage.setIcon(new javax.swing.ImageIcon(evt.getImgPath() + "_2.jpg"));
+        ImageIcon appImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath() + "_3.jpg").getImage().getScaledInstance(210, 190, Image.SCALE_SMOOTH));
+        appSongImage.setIcon(appImageIcon);
+
+        ImageIcon playerSongImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath() + "_1.jpg").getImage().getScaledInstance(110, 105, Image.SCALE_SMOOTH));
+        playerSongImage.setIcon(playerSongImageIcon);
     }
 
     @Override
@@ -149,6 +152,11 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         songsPanel.setSongRequestListener(this);
         favoritesPanel.setSongRequestListener(this);
+
+        searchBar.addActionListener(e -> {
+            songsPanel.setSongFilterByName(searchBar.getText());
+            favoritesPanel.setSongFilterByName(searchBar.getText());
+        });
 
         playBtn.addMouseListener(new MouseAdapter() {
             @Override
@@ -287,7 +295,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         JPanel jPanel2 = new JPanel();
         JPanel jPanel14 = new JPanel();
         JLabel volumeIcon = new JLabel();
-        JPanel jPanel16 = new JPanel();
+        JPanel playerSongImageContainer = new JPanel();
         JPanel jPanel18 = new JPanel();
         JPanel jPanel15 = new JPanel();
         JPanel jPanel17 = new JPanel();
@@ -302,7 +310,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         JPanel jPanel10 = new JPanel();
         JPanel jPanel12 = new JPanel();
         JPanel jPanel11 = new JPanel();
-        JPanel jPanel19 = new JPanel();
+        JPanel appSongImageContainer = new JPanel();
         JPanel jPanel21 = new JPanel();
         JLabel jLabel4 = new JLabel();
         JLabel jLabel14 = new JLabel();
@@ -358,9 +366,9 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
 
         jPanel2.add(jPanel14, java.awt.BorderLayout.EAST);
 
-        jPanel16.setBackground(new java.awt.Color(72, 51, 87));
-        jPanel16.setPreferredSize(new java.awt.Dimension(302, 113));
-        jPanel16.setLayout(new java.awt.GridBagLayout());
+        playerSongImageContainer.setBackground(new java.awt.Color(72, 51, 87));
+        playerSongImageContainer.setPreferredSize(new java.awt.Dimension(302, 113));
+        playerSongImageContainer.setLayout(new java.awt.GridBagLayout());
 
         songTitle.setFont(new java.awt.Font("Segoe UI Semibold", 0, 24));
         songTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -370,7 +378,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(25, 12, 0, 0);
-        jPanel16.add(songTitle, gridBagConstraints);
+        playerSongImageContainer.add(songTitle, gridBagConstraints);
 
         nameOfArtist.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18));
         nameOfArtist.setForeground(new java.awt.Color(255, 255, 255));
@@ -381,7 +389,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(6, 12, 0, 28);
-        jPanel16.add(nameOfArtist, gridBagConstraints);
+        playerSongImageContainer.add(nameOfArtist, gridBagConstraints);
 
         playerSongImage.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy.jpg"));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -391,9 +399,9 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         gridBagConstraints.ipady = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 30, 10, 0);
-        jPanel16.add(playerSongImage, gridBagConstraints);
+        playerSongImageContainer.add(playerSongImage, gridBagConstraints);
 
-        jPanel2.add(jPanel16, java.awt.BorderLayout.WEST);
+        jPanel2.add(playerSongImageContainer, java.awt.BorderLayout.WEST);
 
         jPanel18.setBackground(new java.awt.Color(72, 51, 87));
 
@@ -482,13 +490,14 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         jPanel11.setPreferredSize(new java.awt.Dimension(250, 494));
         jPanel11.setLayout(new java.awt.BorderLayout());
 
-        jPanel19.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel19.setPreferredSize(new java.awt.Dimension(250, 205));
+        appSongImageContainer.setBackground(new java.awt.Color(51, 51, 51));
+        appSongImageContainer.setPreferredSize(new java.awt.Dimension(250, 205));
 
         appSongImage.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\album-cover - Copy - Copy.jpg")); // NOI18N
-        jPanel19.add(appSongImage);
+        appSongImage.setPreferredSize(new java.awt.Dimension(210, 190));
+        appSongImageContainer.add(appSongImage);
 
-        jPanel11.add(jPanel19, java.awt.BorderLayout.NORTH);
+        jPanel11.add(appSongImageContainer, java.awt.BorderLayout.NORTH);
 
         jPanel21.setBackground(new java.awt.Color(51, 51, 51));
         jPanel21.setLayout(new java.awt.GridBagLayout());

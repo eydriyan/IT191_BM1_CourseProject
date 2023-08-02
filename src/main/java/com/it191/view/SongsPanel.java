@@ -14,10 +14,15 @@ public class SongsPanel extends JPanel implements ISongUpdateListener {
 
     private SongsController songsController;
     private ISongRequestListener songRequestListener;
+    private String songFilterQuery;
+
+    private ArrayList<SongModel> loadedSongs;
 
     public SongsPanel() {
         this.onUISetup();
-        songsController = new SongsController();
+        this.songsController = new SongsController();
+        this.songFilterQuery = "";
+        this.loadedSongs = songsController.getSongs();
     }
 
     public void setSongRequestListener(ISongRequestListener songRequestListener) {
@@ -29,17 +34,26 @@ public class SongsPanel extends JPanel implements ISongUpdateListener {
         this.setLayout(new java.awt.GridLayout(10, 1));
     }
 
-    public void onRefreshSongs() {
-        ArrayList<SongModel> songs = songsController.getSongs();
+    public void setSongFilterByName(String name) {
+        this.songFilterQuery = name;
+        this.onRefreshSongs();
+    }
 
+    public void onRefreshSongs() {
         this.removeAll();
-        for (SongModel songModel : songs) {
+
+        for (SongModel songModel : loadedSongs) {
+
+            if(!songModel.getTitle().toLowerCase().contains(songFilterQuery.toLowerCase()) && !songFilterQuery.trim().isEmpty())
+                continue;
+
             SongItem songItem = new SongItem(songModel);
             songItem.setSongRequestListener(songRequestListener);
             songItem.setSongUpdateListener(this);
             this.add(songItem);
         }
 
+        this.repaint();
         this.revalidate();
     }
 
