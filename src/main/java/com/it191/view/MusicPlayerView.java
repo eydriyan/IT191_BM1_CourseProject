@@ -19,10 +19,11 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import com.it191.controller.MusicController;
 import com.it191.view.listeners.ISongRequestListener;
+import com.it191.view.listeners.IViewUpdateListener;
 import com.it191.view.listeners.IPlayerUpdateListener;
 import com.it191.view.objects.SongEvent;
 
-public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, ISongRequestListener {
+public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, ISongRequestListener, IViewUpdateListener {
 
     MusicController musicController;
 
@@ -74,9 +75,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         nameOfArtist.setText(evt.getArtist());
         lyricsPanel.setLyrics(evt.getLyrics());
 
-        ImageIcon appImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath()).getImage().getScaledInstance(210, 190, Image.SCALE_SMOOTH));
-        appSongImage.setIcon(appImageIcon);
-
         ImageIcon playerSongImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath()).getImage().getScaledInstance(110, 105, Image.SCALE_SMOOTH));
         playerSongImage.setIcon(playerSongImageIcon);
     }
@@ -87,6 +85,12 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         musicController.stopSong();
         musicController.songToPlay(evt);
         seekSlider.setValue(0);
+    }
+
+    @Override
+    public void onViewUpdated(SongEvent evt) {
+        ImageIcon appImageIcon = new ImageIcon(new ImageIcon(evt.getImgPath()).getImage().getScaledInstance(210, 190, Image.SCALE_SMOOTH));
+        appSongImage.setIcon(appImageIcon);
     }
 
     private void changeViewControlSetup() {
@@ -131,6 +135,9 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         lyricsPanel = new LyricsPanel();
         favoritesPanel = new FavoritesPanel();
         songsPanel = new SongsPanel();
+
+        songsPanel.setViewUpdateListener(this);
+        favoritesPanel.setViewUpdateListener(this);
 
         musicController = new MusicController();
         musicController.setSongUpdateListener(this);

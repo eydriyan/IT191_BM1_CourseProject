@@ -19,6 +19,11 @@ public class SongEvent extends EventObject {
         //TODO Auto-generated constructor stub
     }
 
+    public SongEvent(Object source, String imgPath) {
+        super(source);
+        this.imgPath = imgPath;
+    }
+
     public SongEvent(Object source, String title, String artist, String imgPath, String lyrics) {
         super(source);
         this.title = title;
@@ -27,7 +32,6 @@ public class SongEvent extends EventObject {
         this.lyrics = lyrics;
     }
     
-
     public SongEvent(Object source, int songId, String title, String artist, String lyrics, int duration,
             String songPath, String imgPath) {
         super(source);
