@@ -34,7 +34,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
     private JLabel nextBtn;
     private JLabel pauseBtn;
     private JLabel playBtn;
-    private JPanel playlistsBtn;
     private JLabel previousBtn;
     private JTextField searchBar;
     private JSlider seekSlider;
@@ -45,14 +44,12 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
     private GridBagConstraints gridBagConstraints;
 
     private JLabel songsLabel;
-    private JLabel playlistLabel;
     private JLabel favoritesLabel;
     private JPanel panelHolder;
 
     private LyricsPanel lyricsPanel;
     private FavoritesPanel favoritesPanel;
     private SongsPanel songsPanel;
-    private PlaylistPanel playlistPanel;
 
     javax.swing.Timer seekSliderTimerUpdate = new javax.swing.Timer(90, new ActionListener() {
             @Override
@@ -96,7 +93,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         panelHolder.add(lyricsPanel, "Lyrics");
         panelHolder.add(favoritesPanel, "Favorites");
         panelHolder.add(songsPanel, "Songs");
-        panelHolder.add(playlistPanel, "Playlists");
 
         lyricsBtn.addMouseListener(
             new MouseAdapter() {
@@ -118,16 +114,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                 }
             }
         );
-        
-        playlistsBtn.addMouseListener(
-            new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent event) {
-                    CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
-                    cardLayout.show(panelHolder, "Playlists");
-                }
-            }
-        );
 
         favoritesBtn.addMouseListener(
             new MouseAdapter() {
@@ -145,7 +131,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         lyricsPanel = new LyricsPanel();
         favoritesPanel = new FavoritesPanel();
         songsPanel = new SongsPanel();
-        playlistPanel = new PlaylistPanel();
 
         musicController = new MusicController();
         musicController.setSongUpdateListener(this);
@@ -282,12 +267,10 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         playBtn = new JLabel();
         stopBtn = new JLabel();
         nextBtn = new JLabel();
-        playlistsBtn = new JPanel();
         favoritesBtn = new JPanel();
         songsBtn = new JPanel();
         searchBar = new JTextField();
         songsLabel = new JLabel();
-        playlistLabel = new JLabel();
         favoritesLabel = new JLabel();
         panelHolder = new JPanel();
 
@@ -313,7 +296,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         JPanel appSongImageContainer = new JPanel();
         JPanel jPanel21 = new JPanel();
         JLabel jLabel4 = new JLabel();
-        JLabel jLabel14 = new JLabel();
         JLabel jLabel9 = new JLabel();
         JPanel jPanel13 = new JPanel();
         JPanel jPanel23 = new JPanel();
@@ -530,35 +512,6 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(54, 0, 0, 0);
         jPanel21.add(songsBtn, gridBagConstraints);
-
-        playlistsBtn.setBackground(new java.awt.Color(102, 102, 102));
-        playlistsBtn.setPreferredSize(new java.awt.Dimension(250, 97));
-        playlistsBtn.setLayout(new java.awt.GridBagLayout());
-
-        playlistLabel.setFont(new java.awt.Font("Segoe UI", 1, 30));
-        playlistLabel.setForeground(new java.awt.Color(255, 255, 255));
-        playlistLabel.setText("Playlists");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(27, 18, 29, 48);
-        playlistsBtn.add(playlistLabel, gridBagConstraints);
-
-        jLabel14.setIcon(new javax.swing.ImageIcon("target\\classes\\com\\it191\\view\\images\\playlist-icon.png"));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(23, 24, 29, 0);
-        playlistsBtn.add(jLabel14, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 0, 171, 0);
-        jPanel21.add(playlistsBtn, gridBagConstraints);
 
         favoritesBtn.setBackground(new java.awt.Color(102, 102, 102));
         favoritesBtn.setPreferredSize(new java.awt.Dimension(250, 97));
