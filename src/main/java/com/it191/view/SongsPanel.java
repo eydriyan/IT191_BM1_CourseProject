@@ -39,6 +39,11 @@ public class SongsPanel extends JPanel implements ISongUpdateListener {
         this.onRefreshSongs();
     }
 
+    public void onForceDatabaseReload() {
+        this.loadedSongs = songsController.getSongs();
+        this.onRefreshSongs();
+    }
+
     public void onRefreshSongs() {
         this.removeAll();
 

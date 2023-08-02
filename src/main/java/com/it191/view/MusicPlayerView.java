@@ -114,7 +114,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                 public void mouseClicked(MouseEvent event) {
                     CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
                     cardLayout.show(panelHolder, "Songs");
-                    songsPanel.onRefreshSongs();
+                    songsPanel.onForceDatabaseReload();
                 }
             }
         );
@@ -135,7 +135,7 @@ public class MusicPlayerView extends JPanel implements IPlayerUpdateListener, IS
                 public void mouseClicked(MouseEvent event) {
                     CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
                     cardLayout.show(panelHolder, "Favorites");
-                    favoritesPanel.onRefreshSongs();
+                    favoritesPanel.onForceDatabaseReload();
                 }
             }
         );

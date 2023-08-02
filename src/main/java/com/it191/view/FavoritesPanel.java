@@ -22,7 +22,6 @@ public class FavoritesPanel extends JPanel implements ISongUpdateListener {
         this.onUISetup();
         this.favoritesController = new FavoritesController();
         this.songFilterQuery = "";
-        this.loadedSongs = favoritesController.getFavoriteSongs();
     }
 
     public void setSongRequestListener(ISongRequestListener songRequestListener) {
@@ -36,6 +35,11 @@ public class FavoritesPanel extends JPanel implements ISongUpdateListener {
 
     public void setSongFilterByName(String name) {
         this.songFilterQuery = name;
+        this.onRefreshSongs();
+    }
+
+    public void onForceDatabaseReload() {
+        this.loadedSongs = favoritesController.getFavoriteSongs();
         this.onRefreshSongs();
     }
 
@@ -65,6 +69,6 @@ public class FavoritesPanel extends JPanel implements ISongUpdateListener {
             favoritesController.removeSongFromFavorites(evt);
         }
 
-        this.onRefreshSongs();
+        this.onForceDatabaseReload();
     }
 }
